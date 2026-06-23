@@ -3,47 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巨人數學 - 正負數加減大挑戰</title>
+<title>巨人數學 - 乘法公式大挑戰</title>
 <style>
 :root{
---green:#22c55e;--green-dark:#16a34a;
---red:#ef4444;--red-bright:#f87171;
---blue-bright:#60a5fa;--orange-bright:#fb923c;
---text-primary:#f1f5f9;--text-muted:#94a3b8;
---bg-panel:#1e293b;--bg-surface:#273449;
---border-soft:rgba(255,255,255,0.08);
+  --green:#22c55e;--red:#ef4444;--red-bright:#f87171;
+  --blue-bright:#60a5fa;--orange-bright:#fb923c;
+  --text-primary:#f1f5f9;--text-muted:#94a3b8;
+  --bg-panel:#1e293b;--bg-surface:#273449;
+  --border-soft:rgba(255,255,255,0.08);
+  --accent1:#a78bfa;--accent2:#7c3aed;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;min-height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,sans-serif;}
 body{min-height:100vh;background:linear-gradient(160deg,#0b1120,#161f33);display:flex;justify-content:center;padding:16px;}
-.app{width:100%;max-width:480px;}
+.app{width:100%;max-width:800px;}
 .hidden{display:none!important;}
-.brand-bar{padding:2px 4px 14px;}
+
+.brand-bar{padding:2px 4px 14px;display:flex;align-items:center;gap:8px;}
+.brand-avatar{width:36px;height:36px;border-radius:50%;object-fit:contain;background:#fff;flex-shrink:0;}
 .brand-name{font-weight:800;font-size:18px;color:var(--text-primary);letter-spacing:1px;}
+
 .panel{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:20px;padding:22px 18px;box-shadow:0 6px 22px rgba(0,0,0,0.45);}
-.title{text-align:center;font-size:19px;font-weight:800;color:var(--text-primary);margin:0 0 10px 0;}
-.total-score-banner{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border-radius:16px;padding:14px;text-align:center;margin-bottom:14px;box-shadow:0 6px 16px rgba(59,130,246,0.35);}
+.title{text-align:center;font-size:18px;font-weight:800;color:var(--text-primary);margin:0 0 4px 0;}
+.subtitle{text-align:center;font-size:12px;color:#f87171;font-weight:700;margin:0 0 12px 0;letter-spacing:.5px;}
+
+.total-score-banner{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border-radius:16px;padding:14px;text-align:center;margin-bottom:14px;box-shadow:0 6px 16px rgba(124,58,237,0.35);}
 .total-score-banner .label{font-size:12px;opacity:0.92;font-weight:600;}
 .total-score-banner .big{font-size:26px;font-weight:800;}
 .total-score-banner.small{padding:10px;margin-bottom:16px;}
 .total-score-banner.small .big{font-size:21px;}
-.btn-primary{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border:none;padding:13px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(59,130,246,0.35);flex:1;transition:transform .15s;}
+
+.btn-primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:13px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(124,58,237,0.35);flex:1;transition:transform .15s;}
 .btn-primary:hover{transform:translateY(-2px);}
 .btn-primary:active{transform:scale(0.96);}
 .btn-secondary{flex:1;background:var(--bg-surface);color:var(--text-primary);border:none;padding:13px;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;}
 .btn-secondary:hover{background:#334155;}
 .btn-row{display:flex;gap:10px;}
-.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.level-card{position:relative;border-radius:18px;padding:16px 10px;text-align:center;color:#fff;cursor:pointer;transition:transform .15s;box-shadow:0 4px 16px rgba(0,0,0,0.35);}
-.level-card:hover{transform:translateY(-3px) scale(1.02);}
+
+.level-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:16px;}
+.level-card{position:relative;border-radius:18px;padding:14px 16px;color:#fff;cursor:pointer;transition:transform .15s;box-shadow:0 4px 16px rgba(0,0,0,0.35);display:flex;align-items:center;gap:14px;}
+.level-card:hover{transform:translateY(-3px) scale(1.01);}
 .level-card:active{transform:scale(0.97);}
-.level-card .emoji{font-size:28px;}
-.level-card .name{font-size:16px;font-weight:800;margin:2px 0;}
-.level-card .meta{font-size:11px;opacity:0.95;font-weight:600;line-height:1.5;}
-.level-card .best{font-size:12px;margin-top:8px;font-weight:700;background:rgba(255,255,255,0.25);border-radius:8px;padding:4px 6px;}
-@keyframes ssrPulseGlow{0%,100%{box-shadow:0 4px 16px rgba(251,191,36,0.4);}50%{box-shadow:0 4px 26px rgba(251,191,36,0.75);}}
+.level-card .emoji{font-size:32px;flex-shrink:0;}
+.level-card .info{flex:1;text-align:left;}
+.level-card .name{font-size:15px;font-weight:800;margin:0 0 2px;}
+.level-card .meta{font-size:11px;opacity:0.9;font-weight:600;line-height:1.5;}
+.level-card .best{font-size:12px;font-weight:700;background:rgba(255,255,255,0.22);border-radius:8px;padding:3px 8px;white-space:nowrap;}
+@keyframes ssrPulseGlow{0%,100%{box-shadow:0 4px 16px rgba(251,191,36,0.4);}50%{box-shadow:0 4px 28px rgba(251,191,36,0.8);}}
 .level-card.ssr-card{animation:ssrPulseGlow 2.4s ease-in-out infinite;}
+
 .rules-note{font-size:12px;color:var(--text-muted);line-height:1.7;text-align:center;}
+
 .header{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:20px;padding:14px 18px;margin-bottom:12px;box-shadow:0 6px 22px rgba(0,0,0,0.45);}
 .header-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
 .back-btn{background:var(--bg-surface);color:var(--text-primary);border:none;border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;}
@@ -53,30 +63,51 @@ body{min-height:100vh;background:linear-gradient(160deg,#0b1120,#161f33);display
 .stat-box{flex:1;text-align:center;background:var(--bg-surface);border-radius:12px;padding:6px 4px;}
 .stat-label{font-size:11px;color:var(--text-muted);font-weight:700;}
 .stat-value{font-size:19px;font-weight:800;color:var(--text-primary);}
-#play-score{color:var(--blue-bright);} #play-combo{color:var(--orange-bright);} #play-time{color:var(--red-bright);}
+#play-score{color:var(--accent1);}#play-combo{color:var(--orange-bright);}#play-time{color:var(--red-bright);}
 .timer-bar-bg{height:7px;background:#334155;border-radius:6px;overflow:hidden;}
 .timer-bar{height:100%;width:100%;background:var(--green);border-radius:6px;}
+
 .playing-area{position:relative;}
 .progress-text{text-align:center;color:var(--text-muted);font-weight:700;font-size:13px;margin-bottom:6px;}
-.progress-dots{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;}
+.progress-dots{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
 .dot{width:12px;height:12px;border-radius:50%;background:#334155;transition:background .2s;}
-.dot-correct{background:var(--green);} .dot-wrong{background:var(--red);}
-.question-card{background:linear-gradient(135deg,#312e81,#4c1d95);border-radius:20px;padding:24px 16px;margin-bottom:16px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.4);min-height:74px;display:flex;align-items:center;justify-content:center;}
-#question{font-size:26px;font-weight:800;color:#fff;letter-spacing:1px;}
-.answer-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.option-btn{padding:18px 8px;border:none;border-radius:14px;font-size:21px;font-weight:800;cursor:pointer;transition:transform .12s;box-shadow:0 3px 12px rgba(0,0,0,0.3);color:#fff;}
-.option-btn:active{transform:scale(0.94);}
-.option-btn.positive{background:#3b82f6;}
-.option-btn.negative{background:#f97316;}
-.option-btn.zero{background:#475569;}
-@keyframes correctPulse{0%{transform:scale(1);}40%{transform:scale(1.12);background:var(--green)!important;box-shadow:0 0 0 8px rgba(34,197,94,0.35);}100%{transform:scale(1);background:var(--green)!important;}}
+.dot-correct{background:var(--green);}.dot-wrong{background:var(--red);}
+
+.question-card{background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:20px;padding:20px 16px 18px;margin-bottom:12px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.4);min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.q-type-tag{font-size:10px;font-weight:800;letter-spacing:.8px;padding:2px 10px;border-radius:999px;background:rgba(167,139,250,0.25);color:#c4b5fd;text-transform:uppercase;}
+#question{font-size:22px;font-weight:800;color:#fff;letter-spacing:.5px;line-height:1.4;}
+
+.answer-options{display:flex;flex-direction:column;gap:10px;}
+.option-btn{
+  padding:16px 20px;border:none;border-radius:14px;
+  font-size:17px;font-weight:800;cursor:pointer;
+  transition:transform .12s;box-shadow:0 3px 12px rgba(0,0,0,0.3);
+  color:#fff;line-height:1.5;min-height:58px;
+  display:flex;align-items:center;justify-content:flex-start;
+  text-align:left;
+}
+.option-btn:active{transform:scale(0.97);}
+.option-btn .opt-label{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;
+  background:rgba(0,0,0,0.25);border-radius:6px;
+  padding:2px 8px;margin-right:12px;flex-shrink:0;min-width:28px;
+}
+.option-btn .opt-text{flex:1;}
+.opt-A{background:linear-gradient(135deg,#2563eb,#1d4ed8);}
+.opt-B{background:linear-gradient(135deg,#7c3aed,#6d28d9);}
+.opt-C{background:linear-gradient(135deg,#0f766e,#0d9488);}
+
+@keyframes correctPulse{0%{transform:scale(1);}40%{transform:scale(1.1);background:#15803d!important;box-shadow:0 0 0 8px rgba(34,197,94,0.35);}100%{transform:scale(1);background:#16a34a!important;}}
 @keyframes wrongShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
-@keyframes revealPulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
-.option-btn.correct-flash{animation:correctPulse 0.4s ease forwards;background:var(--green)!important;}
-.option-btn.wrong-flash{animation:wrongShake 0.4s ease;background:var(--red)!important;}
-.option-btn.reveal-flash{animation:revealPulse 0.5s ease;box-shadow:0 0 0 4px rgba(250,204,21,0.9);}
+@keyframes revealPulse{0%{transform:scale(1);}50%{transform:scale(1.06);}100%{transform:scale(1);}}
+.option-btn.correct-flash{animation:correctPulse 0.45s ease forwards;background:#16a34a!important;}
+.option-btn.wrong-flash{animation:wrongShake 0.4s ease;background:#dc2626!important;}
+.option-btn.reveal-flash{animation:revealPulse 0.5s ease;box-shadow:0 0 0 4px rgba(250,204,21,0.9)!important;}
+
 .points-popup{position:absolute;font-weight:800;font-size:15px;pointer-events:none;animation:floatUp 0.8s ease forwards;z-index:50;}
-@keyframes floatUp{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-36px);}}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-40px);}}
+
 #result-title{text-align:center;margin:0 0 16px;color:var(--text-primary);font-size:19px;font-weight:800;}
 .thumbsup-stage{width:110px;height:110px;margin:0 auto 18px;border-radius:50%;background:linear-gradient(135deg,#fde68a,#fbbf24);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(251,191,36,0.45);}
 .thumbsup-stage .icon{font-size:54px;line-height:1;}
@@ -94,58 +125,68 @@ body{min-height:100vh;background:linear-gradient(160deg,#0b1120,#161f33);display
 <body>
 <div class="app">
 
-<div class="brand-bar"><div class="brand-name">📐 巨人數學</div></div>
+<div class="brand-bar">
+  <img class="brand-avatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/+EATEV4aWYAAE1NACoAAAAIAAGHaQAEAAAAAQAAABoAAAAAAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAoCgAwAEAAAAAQAAAoAAAAAA/9sAQwAGBAUGBQQGBgUGBwcGCAoQCgoJCQoUDg8MEBcUGBgXFBYWGh0lHxobIxwWFiAsICMmJykqKRkfLTAtKDAlKCko/9sAQwEHBwcKCAoTCgoTKBoWGigoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgo/8AAEQgAgACAAwEiAAIRAQMRAf/EABwAAAEEAwEAAAAAAAAAAAAAAAcDBAUGAAEIAv/EAD0QAAIBAwMCBAQDBgMIAwAAAAECAwQFEQASIQYxEyJBUQcUYXEygZEIFSNCUqEzc7EkRGJygsHR8GOz8f/EABkBAAMBAQEAAAAAAAAAAAAAAAECBAMABf/EACURAAICAQUAAgEFAAAAAAAAAAECABEDBBIhMUEiURMUMmGh8P/aAAwDAQACEQMRAD8A6oUDA41vA9tYOw1munTMD21mB7a0zBQSxwBqOq6wtlI22L6t6/8Ap0rMF7hAuPJqiKEedhn200mq5GIWFUXOTk86YSx74hG77RwQxGfy1XututLH0bRpJeKwrUFCYqaEBpZR2yF7BePxEgfXWJdm6jUB3LPvncKPEYluOGJx+WNRPUPUds6bs9XX3aqVY6VGkdQymUqD6JkEn6a5Q67+I926nvklTT3GvorVx4VvScGNcepIVc59ufvqpzVtRKSd4XJz5VC/6DOmGInswbq6nVtv+MvSNbLhKyqpkVsMZ6KQZ9e6gjHI1N1fxP6UoqH5x79TvSh1SR4syGLccAuoG5RnjOOMjXGPiSHl2LH3PfW5HaaExuS8Z7o/mGm/EPJ24zumx9U0t3zNbauluFFu2manO7aSMgHHY/cDVijmjcgAgMfQ64B6evdxsNwiq7XVzU08fAlifDY9j7j6MCPpovx/HitWvsEtTTExR+KlyWNB4c0flIkQd0lXz+XJUjtwfKaYdQCp1Jge2swPbUfBWnZGw/ixPgq4/pIzu+o/86fqwZQVOQdFWDTiKm8D21ogYPGt6w9jpoJg7DWmYKCScAa2Ow1HXCdi6pHt2BgGz686Vm2i4QLiVXVFieDjuqgH++kVKhSHJ55PlPOlM8ge+t986lJvuaVKz1/d6yy9IXGvtCU71UMe5Gqn2RRf/Ix7nHoo5YkD11xxV3K4XSuqKu6Vby3Cc7pZXAlYN+fBIHHsOwAA0ZP2nur5RX0XSlA+BHGtbVBTjJJIjB+gGWx7svtoFWz5i4VK0dtppamrkJVIolyzAcH7DPqeONUYxtWzENk0JL3euoKoxwxs2UITcqhQR9yOPfjUfURr+OLyw52jcwLE/bvplLRV8fUlTa2i8atgfwvApcynf/MOBzjt7Zzp7c6KsttfUU1xiWmkpwokRnUlWIDbWIOAQCMjPBPPbThhOKn6ieD2H641g7en6acPSXBbPLc1oqn5FMKamRfDjJOcKrNjcTjgLnSFrp6m5PIlDTy1ckUZkkWnXeIwASSzfhUAA8kjXbhO2n6mRoCcYA+ucaRqW8PK7v4ZGGzkcHjS4lRIjIQ20IHICklVOOSB2HI5PGlIYUrZTGZEUIrsxI5Pbdk/QA/odEGCjCX+z/eqii6wpKKbqCehoJiESlcGWGpft4bFm/hseNrAdxg9wD1ZHVGnkRSCyu2Me311xLSWmjp6eT5qtCyDIQAbQGBxjPrk+3bIOuoPg/1W3VnRNLVVBaWupnakqWbG5nTGHP1ZSpP1zrHIKO4Rl+jCcrB1DKcg9tbPY6jaCpIk8N0ZQeQSRxqSPY60VtwuKRURqJRFAW9ew41DtKq7VO78Qx5Tzzp/Wvl1X+kaaOUJwWUEEHn9dYZGsx1HE0rjljuH02ntrzLGtRGvnYAjII+o1uSdUUMDuz22nW5N3g/wgNxHGMEDSRpyv+0o1DT/ABBmNJGkVX8nFJVTYLM7EMRnPsqoABx+uiV8JuhKPpLo6kzABeKmJJqyYjLFj5tmfRVzjHuCdUD40WWSv+OVsgnQiO5Nbl29/Lkq/wD9bDRK+I976ppIqWg6Js5rLhV73erlC+DSoD67iFLHPAPoOx0M5JVcYPco0tLeQjqSti6ctVsqqia30EEMlRK00zKvLuTkkn154zt/w76WoLnPcY7VHNXzStM89SxmbexySN2cc+2h7Zrv8W+n6yKS/WZL7b3ceMlL4LSxgnkqY8HI9iCPt30agRvOonVsXt3PQR1zc1VSDvfS9nvi08N5oIqyCnkMkccuSqsRjOM88e+dPn6etRsdRahRRRW+eJoXihHhDawwcbcY49Rp6xUEls7QCTgZOB9NBa7/ABb6sqapj050LXG287J6umqGZwPUqgAGfbJ++uwo7jjyDLkVP3ey+VvQdjXpa5WO10cNHT1kDQsyLySRwzHuxBweT6a596z6UfonqGGharkrfHpo6ozSKFEjncsoAH8uR274bnRu+GfxKp+r6me1XC3TWm+Qx+KaeTJWVBwSpYBgRnlSPsTzqvftG0srW3p+uRCYIZ5oJH/pMiqVz9yhH3xqjAz48mxvZPqAmTFvXyBWSokaMRs5KD0P2xn9ANHb9leB/lupqlp28F6mAiJQeG8M5Y/fj9NAL8XbXRH7LFA1NZOoq93bZVVkUCJjj+HECSD9fE/tr0Mh+M8wDmGqUqWcgt/hkYwcal6GYzUis/4wMN99RsRdiTkbT6EYI0tbqgmpkiIbaQcErjkd9Y4jRqFhNTNulc/XXjA5OBz314kwAdzt5uwHf8teFYRkly+WPt9dZ9x4qyhlwRx9NY5IAxjJIHP1OvLq+47e2Pf1zrWxtoGVIVs8DHHprp0Av7Ql7p7X1R0tfaCmmrKqzVYjqVWMhAXUvFGz9gx5OO4DZ4yNTF0oqyigpP3tfeoq+8VjiCGhtcyUolmxkpGqr5UUZJZ2OAMk+mof4wW6orukeskppjHU0V2ereMx7vFGYXjA9QSpXBH1H2KXT81vuP7r6igiiklanzFN/MiOVLoPbzKAfXK41om0jnyU41Kqa7IgdpOr6qhvs1urbtfKSGKqFFJcIqlbpR09RgnwZjLAnOAclG4wfQE6Jdlu8zVVwt95FNBcrc6CV422xTJICY5UDHKhsMCpJwykZIwdACydF9UUXxVWlk+eW0w3n95SzYb5WRFZmWXP4WcqxXHcbiPfRZqelrN1X1/erperfFXxUUdPboVmyYw4VpJfL2JHiIOe3Ol1OPGU3HiNpmygyy3m71oukFqsUNNLcJIfmZJalm8Gmh3bVYhfM7MwIVQRnaxJAHND6j66uFvvMdBJ1C1XMZPCaShskXhBw20oplqAXIby+XjcCuSQRqx9H9O2zpfru+UFopzTU9Zbqrii3llG2WVJAmTkAFkOM8bvroG/F+C90nXd96dt/iQWy6LSLS0UQAWdI1AhVBjJ2uW4HqSTo4MOMIOLgz5Hrd/MONBeL/PQ/vShe19SUsW6OSOOmehroyv44wrMy7xjmNtuT+WvPXtZR3z4S3qupQKmhqLY9TCxX1C7kJHowYDj0I1YBRx2G7V1/qJnXfRRCsXA8N3hUkzE/17crn1AHtoR1PwyoqL4UVF4ppb1Bep7b8zUQUlU4SoeTzeG0YByPOBge2ky4UBVxxNQ7qhUi7EFAQKBuIC98+2uuPgpZXs/wAOLPHIpjmnDVsgPfMp3DP2QqPy0ILd8M7BbLbSUfWV2uDX2tRXNPSuf9lVzhQwVDkc7S74UnIHbOj30TXzXC0v88kS19FUSUNQYV2o7RkAOq54DKVbHpkjWj5A3AkP4mUAmTgIijd5Dz3Yj/trxTzhJ42YOOcNleBk6UljEi7WLDBzkeh0htXxfCNUxfGdnlz/AKaVSBEYGKNje4kCFsDH2yffXligZ1RQCwAGMe50tUgCV1fw8Zxyeca8FsZCGMdsc6WGKSYP4iQoOTzjUD1FfP3QUWGmnrp2hlqPDjkCnZFt37cjl/OMLxn3GptXUDDupPrzqn/ECuhtd36XrJZo4masahAdwC4mQgYB74kSLPtnQ6jqAxAld+LVrkrulq+99P1CyJVUsJq0c4E0AkV0lQ+jqCe/dSRwVGvd06elpbrVS2CtrbUJ5XmnjhMclPI5JJbwZAVDH1K7c9zzqc6ZpIq7py99MVQbwoDLRgr3WmmUvFj/AJQ7KP8AL00stbJWQGiuiCO9W8LDWQnuTjAlX3jkA3A/UjuDrPKzBdySvSbd5R5GwdPXmrkxW9UVC05GdlHQQ08h/wCvzEfcAH66d2jpr9z3uolpox8h8tHFTKS7PCdzNL3zu3sQ5cncW75AGrJGfCCtjsQdc3PYrrbur7vZqcuXjleoEs0sgT5d3JjcYb67cD1U9tZB2yqQxlq4t2QBf7h7vtokuK0tXS1MlvudCWNPV+EHUKww6OpwGRgBkZHIBBBGoGU9WQyxu9BYq4geWaGvlgzn1AaN9ufox0Kbp0+8duqZ62vE4jG4R+Azb27Kg3OxyxIGB3JGjf0jantHSdltdVgzUlHHFJ6gMByPyOR+WiMpxrwbmmXTNhen4J+pWK+O7XuJKe9LR0VpkIFTTUszzyzqD+B5GVVVDjzBQSRxkAnV9o5SjYzj2wf9NITUVOGBWIZ/M/21FeFV9QV8lPZrjUUFFbmJq62mRHMs4GBTrvBVgud0nHB2r3zhN+TUPz5M8rYsKWB3I+hoktl76ivlZJNS0Ek7zTT1bYJVUVS3+WNrbB7YwOdW3omnnpenpKqsheCouNTLcHhk4MSuRsRvZhGqAj3yNJ03SVKtXBVXmtuN5lgcPDHUhFgjcchxFGqqWHozbiPTB1aT/GjPLKCQQR399Uom2yfZ5mfP+UBQKAjKGY7imNqqQF3EgD7H10r4DT1UNSCEUDIUqQ31B1upaClUvK6pvPrgbj9Pb8teoYhV11PUxPG0XuM5Pf11qOZLH1xjIYSAqBjklc9tNSyKQDgsfUAalKyJpaYhDhxyM8g/Q6i43WVSCMN/Mvtpsi0bhU+RpcrlTW231VZUAiKBC7ccsewUe5JIA+pGgx1VVSNBd7hdfkrhJUxU8FxpKhTC1qMi/wAIpJyVjRmBY98hmByCAYepra13sVZQU8ixVDKrRO34VkVg6bvpuQZ+mdCWO2XXq28Tm6SxUsFLJJTVUdOWiqniY7/lp1A2hVbGHB845GA51g5oX5KdOoYkeyTsMz01TWVlq6tW936CiT5iNfBNPMi7igZUGVyS2G3lhuycjjV3rbVRdTW6guYlmpK7wllpK6DAmiV1VtnYh1OeUYFT9Dzqkw0j9HfDqopxDGKqITKrQqNssssjBJGwPKCXUnPCgH0GiGi0fS/TsZrqnZTUFOkTSknkKoQADuSSBgDkkjQxNuuNqFCEfcrVVJ1DbEIutpFxp1/3u0jc2Pd6djuB99jONQD3jofq9YNl9oxWQ5EMsdV8rUxZ/Eo3YJBxypBU47aq3WHVdd1JXSxu8sVrziOj3eUgfzSY/Gx9j5R2A9TU+oreKmGnV0R4ACjb4xIsZypViv8ATlcEeze2dKVTdY4MxXXsvx7ELtv6fsdJdYpxcXuVfF54vmaqOQxehdY0AUHn8WM899KX74g9O2mObxKipq5oHEUkNFTPKVcnaFZsBFOeOWGqD0/X9PWikCUvTldSTgebaGKFkY/5rMGx/wAwyPrjSN5v098lWnaEUtNGRIKRHMmWH4XlkwASPRFGB35OCMdhLWw4l2bW41x2Gtv96YROlbinXmVa5Q2ym7tbaeYivceokfA8Me4jBP8AxjRGpaentlBFS2+nigpoE2xxRLtRFHoANcyRUkcEaouTsYurE+YMTksD3ByfTGiH0X17V0LwwdSVD1FsJ2JXSf4kBzjzt/OnuTyvckjOKUK9CeX+oOQ/IwrQ1byShAgOfXP9/rpzCdwYk7jnBPp+WkZ8QlMc7jghQASPy76c4CjHAUfoNaGvIy37EaiKOfwxJHHIm7s65/TT22xImRGoRIxgKowBnTJpEUgF1/Fkc/fUvSRGODzfibzHT4xZisYuOw1F18CQyeOFY59j2P21KDsNaZQylWGQeDrZl3CooNSFQHO8EbWwee/b/wDdVX4h2SkqLHWXSOAx3OgiE8VTTsY5ikbb2j3qQSrKGG05HOrNdrcxKbSoRRgMx7+w1k1O02EZlFOV2SR44Kngj7Y/951ORXc0DHyVqojp7ik0UqiWjqEKsvo8bD/uDoSdXdR3eouM3T14qonktRVVCIVM6Efw6hsnlmU4OOAd2O+ij04GhssEM3+PR7qKUf8AFEdn91Ct9mGqX8S+k5rvdYL/AG2HfX0FvlQIrYM+JEZYseuVMwB9Dt1HiOxihMv1WM5sQdIOZ0zebf4chBIkEig9wqFhn821KOT2ydQ9LPBVdR088DhozQSOjY/EC0YH9if76mO/fTkV3PDqok9HTyjMsUbuOxYdtKJFJtYpHIyIMkqpIUe59texzonKzU/SdkgNXclqJbZMWgg3lWQlipZQu3ABYZYjgca5F3XzOUXBZO26FgpwxGM+2lHYyxYYKyBdmw9tvbbj2xqJrmnFztUacQvPtkw3vG+AR6gkD8xqYBCnGMjQqhBDH8KrvLcumkpZSWqrY3y7M3JeLGYjn6r5SfdDq7KQwBHY6CPwuujUnWsFOM+HcIHp2B7BkzIh/tIP+rRxpKd5HbOAmc8f31QvyliNa3FaSnEjrI44Q5X76kD2OtKoVQF4A1s9jqpV2iopNzB2Gs1oEYHOt5HvpoJ5ljSWNklUMjdwRqPqoHiZTEpeMnDe6/8AnUlke+syPfSsobuEGpQL7a7jFc3r7MkEyTqoqqSZzGJWAwsiOAdrgYUgjDADkEZ1HJaLreBPBcwLTQ/hZKSoMlTMCOwlCgRj3K5b6rolTQRyg/yt/UO+mc9NOv8Ag+G4zzk4Opzh53VZmwzMF2g8Tm7q/pK09IX21UdipJaeNrbIXeaQySP/AB1ABJ9BjgcAZOmGCF5GiF8WrTcp+pKOrSgqZYEt5RpI4yyq3jE7SRnnHOqHLG6jEiOrezKRqfPe6Q5O4ljy8c6kI77dZKZqWS6V3gFNhj+YbaVxjbjPbHpplDE54CMxPooJ1KW/pi810gNHaqyRT/N4RVf1bA0q35AOpXb1CyUsM8KhpKedJtpbbuAJyM+nBOnNntXUF7pqWqt1qiWnqY1milqKwAFWGQSqBj+XGiRa/hXc63H71qIKOH+ZVPiuf04H6nRN6S6YoOmbLQW6jMky0cKwJLOQzlR2zgAfoNbJhcib4FQWcguUH4Z/DattV9N26gqIqkpChpY41MawSneHIXJz5doDMSeWwBsdACydF9UUXxVWlk+eW0w3n95SzYb5WRFZmWXP4WcqxXHcbiPfRZqelrN1X1/erperfFXxUUdPboVmyYw4VpJfL2JHiIOe3Ol1OPGU3HiNpmygyy3m71oukFqsUNNLcJIfmZJalm8Gmh3bVYhfM7MwIVQRnaxJAHND6j66uFvvMdBJ1C1XMZPCaShskXhBw20oplqAXIby+XjcCuSQRqx9H9O2zpfru+UFopzTU9Zbqrii3llG2WVJAmTkAFkOM8bvroG/F+C90nXd96dt/iQWy6LSLS0UQAWdI1AhVBjJ2uW4HqSTo4MOMIOLgz5Hrd/MONBeL/PQ/vShe19SUsW6OSOOmehroyv44wrMy7xjmNtuT+WvPXtZR3z4S3qupQKmhqLY9TCxX1C7kJHowYDj0I1YBRx2G7V1/qJnXfRRCsXA8N3hUkzE/17crn1AHtoR1PwyoqL4UVF4ppb1Bep7b8zUQUlU4SoeTzeG0YByPOBge2ky4UBVxxNQ7qhUi7EFAQKBuIC98+2uuPgpZXs/wAOLPHIpjmnDVsgPfMp3DP2QqPy0ILd8M7BbLbSUfWV2uDX2tRXNPSuf9lVzhQwVDkc7S74UnIHbOj30TXzXC0v88kS19FUSUNQYV2o7RkAOq54DKVbHpkjWj5A3AkP4mUAmTgIijd5Dz3Yj/trxTzhJ42YOOcNleBk6UljEi7WLDBzkeh0htXxfCNUxfGdnlz/AKaVSBEYGKNje4kCFsDH2yffXligZ1RQCwAGMe50tUgCV1fw8Zxyeca8FsZCGMdsc6WGKSYP4iQoOTzjUD1FfP3QUWGmnrp2hlqPDjkCnZFt37cjl/OMLxn3GptXUDDupPrzqn/ECuhtd36XrJZo4masahAdwC4mQgYB74kSLPtnQ6jqAxAld+LVrkrulq+99P1CyJVUsJq0c4E0AkV0lQ+jqCe/dSRwVGvd06elpbrVS2CtrbUJ5XmnjhMclPI5JJbwZAVDH1K7c9zzqc6ZpIq7py99MVQbwoDLRgr3WmmUvFj/AJQ7KP8AL00stbJWQGiuiCO9W8LDWQnuTjAlX3jkA3A/UjuDrPKzBdySvSbd5R5GwdPXmrkxW9UVC05GdlHQQ08h/wCvzEfcAH66d2jpr9z3uolpox8h8tHFTKS7PCdzNL3zu3sQ5cncW75AGrJGfCCtjsQdc3PYrrbur7vZqcuXjleoEs0sgT5d3JjcYb67cD1U9tZB2yqQxlq4t2QBf7h7vtokuK0tXS1MlvudCWNPV+EHUKww6OpwGRgBkZHIBBBGoGU9WQyxu9BYq4geWaGvlgzn1AaN9ufox0Kbp0+8duqZ62vE4jG4R+Azb27Kg3OxyxIGB3JGjf0jantHSdltdVgzUlHHFJ6gMByPyOR+WiMpxrwbmmXTNhen4J+pWK+O7XuJKe9LR0VpkIFTTUszzyzqD+B5GVVVDjzBQSRxkAnV9o5SjYzj2wf9NITUVOGBWIZ/M/21FeFV9QV8lPZrjUUFFbmJq62mRHMs4GBTrvBVgud0nHB2r3zhN+TUPz5M8rYsKWB3I+hoktl76ivlZJNS0Ek7zTT1bYJVUVS3+WNrbB7YwOdW3omnnpenpKqsheCouNTLcHhk4MSuRsRvZhGqAj3yNJ03SVKtXBVXmtuN5lgcPDHUhFgjcchxFGqqWHozbiPTB1aT/GjPLKCQQR399Uom2yfZ5mfP+UBQKAjKGY7imNqqQF3EgD7H10r4DT1UNSCEUDIUqQ31B1upaClUvK6pvPrgbj9Pb8teoYhV11PUxPG0XuM5Pf11qOZLH1xjIYSAqBjklc9tNSyKQDgsfUAalKyJpaYhDhxyM8g/Q6i43WVSCMN/Mvtpsi0bhU+RpcrlTW231VZUAiKBC7ccsewUe5JIA+pGgx1VVSNBd7hdfkrhJUxU8FxpKhTC1qMi/wAIpJyVjRmBY98hmByCAYepra13sVZQU8ixVDKrRO34VkVg6bvpuQZ+mdCWO2XXq28Tm6SxUsFLJJTVUdOWiqniY7/lp1A2hVbGHB845GA51g5oX5KdOoYkeyTsMz01TWVlq6tW936CiT5iNfBNPMi7igZUGVyS2G3lhuycjjV3rbVRdTW6guYlmpK7wllpK6DAmiV1VtnYh1OeUYFT9Dzqkw0j9HfDqopxDGKqITKrQqNssssjBJGwPKCXUnPCgH0GiGi0fS/TsZrqnZTUFOkTSknkKoQADuSSBgDkkjQxNuuNqFCEfcrVVJ1DbEIutpFxp1/3u0jc2Pd6djuB99jONQD3jofq9YNl9oxWQ5EMsdV8rUxZ/Eo3YJBxypBU47aq3WHVdd1JXSxu8sVrziOj3eUgfzSY/Gx9j5R2A9TU+oreKmGnV0R4ACjb4xIsZypViv8ATlcEeze2dKVTdY4MxXXsvx7ELtv6fsdJdYpxcXuVfF54vmaqOQxehdY0AUHn8WM899KX74g9O2mObxKipq5oHEUkNFTPKVcnaFZsBFOeOWGqD0/X9PWikCUvTldSTgebaGKFkY/5rMGx/wAwyPrjSN5v098lWnaEUtNGRIKRHMmWH4XlkwASPRFGB35OCMdhLWw4l2bW41x2Gtv96YROlbinXmVa5Q2ym7tbaeYivceokfA8Me4jBP8AxjRGpaentlBFS2+nigpoE2xxRLtRFHoANcyRUkcEaouTsYurE+YMTksD3ByfTGiH0X17V0LwwdSVD1FsJ2JXSf4kBzjzt/OnuTyvckjOKUK9CeX+oOQ/IwrQ1byShAgOfXP9/rpzCdwYk7jnBPp+WkZ8QlMc7jghQASPy76c4CjHAUfoNaGvIy37EaiKOfwxJHHIm7s65/TT22xImRGoRIxgKowBnTJpEUgF1/Fkc/fUvSRGODzfibzHT4xZisYuOw1F18CQyeOFY59j2P21KDsNaZQylWGQeDrZl3CooNSFQHO8EbWwee/b/wDdVX4h2SkqLHWXSOAx3OgiE8VTTsY5ikbb2j3qQSrKGG05HOrNdrcxKbSoRRgMx7+w1k1O02EZlFOV2SR44Kngj7Y/951ORXc0DHyVqojp7ik0UqiWjqEKsvo8bD/uDoSdXdR3eouM3T14qonktRVVCIVM6Efw6hsnlmU4OOAd2O+ij04GhssEM3+PR7qKUf8AFEdn91Ct9mGqX8S+k5rvdYL/AG2HfX0FvlQIrYM+JEZYseuVMwB9Dt1HiOxihMv1WM5sQdIOZ0zebf4chBIkEig9wqFhn821KOT2ydQ9LPBVdR088DhozQSOjY/EC0YH9if76mO/fTkV3PDqok9HTyjMsUbuOxYdtKJFJtYpHIyIMkqpIUe59texzonKzU/SdkgNXclqJbZMWgg3lWQlipZQu3ABYZYjgca5F3XzOUXBZO26FgpwxGM+2lHYyxYYKyBdmw9tvbbj2xqJrmnFztUacQvPtkw3vG+AR6gkD8xqYBCnGMjQqhBDH8KrvLcumkpZSWqrY3y7M3JeLGYjn6r5SfdDq7KQwBHY6CPwuujUnWsFOM+HcIHp2B7BkzIh/tIP+rRxpKd5HbOAmc8f31QvyliNa3FaSnEjrI44Q5X76kD2OtKoVQF4A1s9jqpV2iopNzB2Gs1oEYHOt5HvpoJ5ljSWNklUMjdwRqPqoHiZTEpeMnDe6/8AnUlke+syPfSsobuEGpQL7a7jFc3r7MkEyTqoqqSZzGJWAwsiOAdrgYUgjDADkEZ1HJaLreBPBcwLTQ/hZKSoMlTMCOwlCgRj3K5b6rolTQRyg/yt/UO+mc9NOv8Ag+G4zzk4Opzh53VZmwzMF2g8Tm7q/pK09IX21UdipJaeNrbIXeaQySP/AB1ABJ9BjgcAZOmGCF5GiF8WrTcp+pKOrSgqZYEt5RpI4yyq3jE7SRnnHOqHLG6jEiOrezKRqfPe6Q5O4ljy8c6kI77dZKZqWS6V3gFNhj+YbaVxjbjPbHpplDE54CMxPooJ1KW/pi810gNHaqyRT/N4RVf1bA0q35AOpXb1CyUsM8KhpKedJtpbbuAJyM+nBOnNntXUF7pqWqt1qiWnqY1milqKwAFWGQSqBj+XGiRa/hXc63H71qIKOH+ZVPiuf04H6nRN6S6YoOmbLQW6jMky0cKwJLOQzlR2zgAfoNbJhcib4FQWcguUH4Z/DattV9N26gqIqkpChpY41MawSneHIXJz5doDMSeWwBsdACydF9UUXxVWlk+eW0w3n95SzYb5WRFZmWXP4WcqxXHcbiPfRZqelrN1X1/erperfFXxUUdPboVmyYw4VpJfL2JHiIOe3Ol1OPGU3HiNpmygyy3m71oukFqsUNNLcJIfmZJalm8Gmh3bVYhfM7MwIVQRnaxJAHND6j66uFvvMdBJ1C1XMZPCaShskXhBw20oplqAXIby+XjcCuSQRqx9H9O2zpfru+UFopzTU9Zbqrii3llG2WVJAmTkAFkOM8bvroG/F+C90nXd96dt/iQWy6LSLS0UQAWdI1AhVBjJ2uW4HqSTo4MOMIOLgz5Hrd/MONBeL/PQ/vShe19SUsW6OSOOmehroyv44wrMy7xjmNtuT+WvPXtZR3z4S3qupQKmhqLY9TCxX1C7kJHowYDj0I1YBRx2G7V1/qJnXfRRCsXA8N3hUkzE/17crn1AHtoR1PwyoqL4UVF4ppb1Bep7b8zUQUlU4SoeTzeG0YByPOBge2ky4UBVxxNQ7qhUi7EFAQKBuIC98+2uuPgpZXs/wAOLPHIpjmnDVsgPfMp3DP2QqPy0ILd8M7BbLbSUfWV2uDX2tRXNPSuf9lVzhQwVDkc7S74UnIHbOj30TXzXC0v88kS19FUSUNQYV2o7RkAOq54DKVbHpkjWj5A3AkP4mUAmTgIijd5Dz3Yj/trxTzhJ42YOOcNleBk6UljEi7WLDBzkeh0htXxfCNUxfGdnlz/AKaVSBEYGKNje4kCFsDH2yffXligZ1RQCwAGMe50tUgCV1fw8Zxyeca8FsZCGMdsc6WGKSYP4iQoOTzjUD1FfP3QUWGmnrp2hlqPDjkCnZFt37cjl/OMLxn3GptXUDDupPrzqn/ECuhtd36XrJZo4masahAdwC4mQgYB74kSLPtnQ6jqAxAld+LVrkrulq+99P1CyJVUsJq0c4E0AkV0lQ+jqCe/dSRwVGvd06elpbrVS2CtrbUJ5XmnjhMclPI5JJbwZAVDH1K7c9zzqc6ZpIq7py99MVQbwoDLRgr3WmmUvFj/AJQ7KP8AL00stbJWQGiuiCO9W8LDWQnuTjAlX3jkA3A/UjuDrPKzBdySvSbd5R5GwdPXmrkxW9UVC05GdlHQQ08h/wCvzEfcAH66d2jpr9z3uolpox8h8tHFTKS7PCdzNL3zu3sQ5cncW75AGrJGfCCtjsQdc3PYrrbur7vZqcuXjleoEs0sgT5d3JjcYb67cD1U9tZB2yqQxlq4t2QBf7h7vtokuK0tXS1MlvudCWNPV+EHUKww6OpwGRgBkZHIBBBGoGU9WQyxu9BYq4geWaGvlgzn1AaN9ufox0Kbp0+8duqZ62vE4jG4R+Azb27Kg3OxyxIGB3JGjf0jantHSdltdVgzUlHHFJ6gMByPyOR+WiMpxrwbmmXTNhen4J+pWK+O7XuJKe9LR0VpkIFTTUszzyzqD+B5GVVVDjzBQSRxkAnV9o5SjYzj2wf9NITUVOGBWIZ/M/21FeFV9QV8lPZrjUUFFbmJq62mRHMs4GBTrvBVgud0nHB2r3zhN+TUPz5M8rYsKWB3I+hoktl76ivlZJNS0Ek7zTT1bYJVUVS3+WNrbB7YwOdW3omnnpenpKqsheCouNTLcHhk4MSuRsRvZhGqAj3yNJ03SVKtXBVXmtuN5lgcPDHUhFgjcchxFGqqWHozbiPTB1aT/GjPLKCQQR399Uom2yfZ5mfP+UBQKAjKGY7imNqqQF3EgD7H10r4DT1UNSCEUDIUqQ31B1upaClUvK6pvPrgbj9Pb8teoYhV11PUxPG0XuM5Pf11qOZLH1xjIYSAqBjklc9tNSyKQDgsfUAalKyJpaYhDhxyM8g/Q6i43WVSCMN/Mvtpsi0bhU+RpcrlTW231VZUAiKBC7ccsewUe5JIA+pGgx1VVSNBd7hdfkrhJUxU8FxpKhTC1qMi/wAIpJyVjRmBY98hmByCAYepra13sVZQU8ixVDKrRO34VkVg6bvpuQZ+mdCWO2XXq28Tm6SxUsFLJJTVUdOWiqniY7/lp1A2hVbGHB845GA51g5oX5KdOoYkeyTsMz01TWVlq6tW936CiT5iNfBNPMi7igZUGVyS2G3lhuycjjV3rbVRdTW6guYlmpK7wllpK6DAmiV1VtnYh1OeUYFT9Dzqkw0j9HfDqopxDGKqITKrQqNssssjBJGwPKCXUnPCgH0GiGi0fS/TsZrqnZTUFOkTSknkKoQADuSSBgDkkjQxNuuNqFCEfcrVVJ1DbEIutpFxp1/3u0jc2Pd6djuB99jONQD3jofq9YNl9oxWQ5EMsdV8rUxZ/Eo3YJBxypBU47aq3WHVdd1JXSxu8sVrziOj3eUgfzSY/Gx9j5R2A9TU+oreKmGnV0R4ACjb4xIsZypViv8ATlcEeze2dKVTdY4MxXXsvx7ELtv6fsdJdYpxcXuVfF54vmaqOQxehdY0AUHn8WM899KX74g9O2mObxKipq5oHEUkNFTPKVcnaFZsBFOeOWGqD0/X9PWikCUvTldSTgebKGKFkY/5rMGx/wAwyPrjSN5v098lWnaEUtNGRIKRHMmWH4XlkwASPRFGB35OCMdhLWw4l2bW41x2Gtv96YROlbinXmVa5Q2ym7tbaeYivceokfA8Me4jBP8AxjRGpaentlBFS2+nigpoE2xxRLtRFHoANcyRUkcEaouTsYurE+YMTksD3ByfTGiH0X17V0LwwdSVD1FsJ2JXSf4kBzjzt/OnuTyvckjOKUK9CeX+oOQ/IwrQ1byShAgOfXP9/rpzCdwYk7jnBPp+WkZ8QlMc7jghQASPy76c4CjHAUfoNaGvIy37EaiKOfwxJHHIm7s65/TT22xImRGoRIxgKowBnTJpEUgF1/Fkc/fUvSRGODzfibzHT4xZisYuOw1F18CQyeOFY59j2P21KDsNaZQylWGQeDrZl3CooNSFQHO8EbWwee/b/wDdVX4h2SkqLHWXSOAx3OgiE8VTTsY5ikbb2j3qQSrKGG05HOrNdrcxKbSoRRgMx7+w1k1O02EZlFOV2SR44Kngj7Y/951ORXc0DHyVqojp7ik0UqiWjqEKsvo8bD/uDoSdXdR3eouM3T14qonktRVVCIVM6Efw6hsnlmU4OOAd2O+ij04GhssEM3+PR7qKUf8AFEdn91Ct9mGqX8S+k5rvdYL/AG2HfX0FvlQIrYM+JEZYseuVMwB9Dt1HiOxihMv1WM5sQdIOZ0zebf4chBIkEig9wqFhn821KOT2ydQ9LPBVdR088DhozQSOjY/EC0YH9if76mO/fTkV3PDqok9HTyjMsUbuOxYdtKJFJtYpHIyIMkqpIUe59texzonKzU/SdkgNXclqJbZMWgg3lWQlipZQu3ABYZYjgca5F3XzOUXBZO26FgpwxGM+2lHYyxYYKyBdmw9tvbbj2xqJrmnFztUacQvPtkw3vG+AR6gkD8xqYBCnGMjQqhBDH8KrvLcumkpZSWqrY3y7M3JeLGYjn6r5SfdDq7KQwBHY6CPwuujUnWsFOM+HcIHp2B7BkzIh/tIP+rRxpKd5HbOAmc8f31QvyliNa3FaSnEjrI44Q5X76kD2OtKoVQF4A1s9jqpV2iopNzB2Gs1oEYHOt5HvpoJ5ljSWNklUMjdwRqPqoHiZTEpeMnDe6/8AnUlke+syPfSsobuEGpQL7a7jFc3r7MkEyTqoqqSZzGJWAwsiOAdrgYUgjDADkEZ1HJaLreBPBcwLTQ/hZKSoMlTMCOwlCgRj3K5b6rolTQRyg/yt/UO+mc9NOv8Ag+G4zzk4Opzh53VZmwzMF2g8Tm7q/pK09IX21UdipJaeNrbIXeaQySP/AB1ABJ9BjgcAZOmGCF5GiF8WrTcp+pKOrSgqZYEt5RpI4yyq3jE7SRnnHOqHLG6jEiOrezKRqfPe6Q5O4ljy8c6kI77dZKZqWS6V3gFNhj+YbaVxjbjPbHpplDE54CMxPooJ1KW/pi810gNHaqyRT/N4RVf1bA0q35AOpXb1CyUsM8KhpKedJtpbbuAJyM+nBOnNntXUF7pqWqt1qiWnqY1milqKwAFWGQSqBj+XGiRa/hXc63H71qIKOH+ZVPiuf04H6nRN6S6YoOmbLQW6jMky0cKwJLOQzlR2zgAfoNbJhcib4FQWcguUH4Z/DattV9N26gqIqkpChpY41MawSneHIXJz5doDMSeWwBsdACydF9UUXxVWlk+eW0w3n95SzYb5WRFZmWXP4WcqxXHcbiPfRZqelrN1X1/erperfFXxUUdPboVmyYw4VpJfL2JHiIOe3Ol1OPGU3HiNpmygyy3m71oukFqsUNNLcJIfmZJalm8Gmh3bVYhfM7MwIVQRnaxJAHND6j66uFvvMdBJ1C1XMZPCaShskXhBw20oplqAXIby+XjcCuSQRqx9H9O2zpfru+UFopzTU9Zbqrii3llG2WVJAmTkAFkOM8bvroG/F+C90nXd96dt/iQWy6LSLS0UQAWdI1AhVBjJ2uW4HqSTo4MOMIOLgz5Hrd/MONBeL/PQ/vShe19SUsW6OSOOmehroyv44wrMy7xjmNtuT+WvPXtZR3z4S3qupQKmhqLY9TCxX1C7kJHowYDj0I1YBRx2G7V1/qJnXfRRCsXA8N3hUkzE/17crn1AHtoR1PwyoqL4UVF4ppb1Bep7b8zUQUlU4SoeTzeG0YByPOBge2ky4UBVxxNQ7qhUi7EFAQKBuIC98+2uuPgpZXs/wAOLPHIpjmnDVsgPfMp3DP2QqPy0ILd8M7BbLbSUfWV2uDX2tRXNPSuf9lVzhQwVDkc7S74UnIHbOj30TXzXC0v88kS19FUSUNQYV2o7RkAOq54DKVbHpkjWj5A3AkP4mUAmTgIijd5Dz3Yj/trxTzhJ42YOOcNleBk6UljEi7WLDBzkeh0htXxfCNUxfGdnlz/AKaVSBEYGKNje4kCFsDH2yffXligZ1RQCwAGMe50tUgCV1fw8Zxyeca8FsZCGMdsc6WGKSYP4iQoOTzjUD1FfP3QUWGmnrp2hlqPDjkCnZFt37cjl/OMLxn3GptXUDDupPrzqn/ECuhtd36XrJZo4masahAdwC4mQgYB74kSLPtnQ6jqAxAld+LVrkrulq+99P1CyJVUsJq0c4E0AkV0lQ+jqCe/dSRwVGvd06elpbrVS2CtrbUJ5XmnjhMclPI5JJbwZAVDH1K7c9zzqc6ZpIq7py99MVQbwoDLRgr3WmmUvFj/AJQ7KP8AL00stbJWQGiuiCO9W8LDWQnuTjAlX3jkA3A/UjuDrPKzBdySvSbd5R5GwdPXmrkxW9UVC05GdlHQQ08h/wCvzEfcAH66d2jpr9z3uolpox8h8tHFTKS7PCdzNL3zu3sQ5cncW75AGrJGfCCtjsQdc3PYrrbur7vZqcuXjleoEs0sgT5d3JjcYb67cD1U9tZB2yqQxlq4t2QBf7h7vtokuK0tXS1MlvudCWNPV+EHUKww6OpwGRgBkZHIBBBGoGU9WQyxu9BYq4geWaGvlgzn1AaN9ufox0Kbp0+8duqZ62vE4jG4R+Azb27Kg3OxyxIGB3JGjf0jantHSdltdVgzUlHHFJ6gMByPyOR+WiMpxrwbmmXTNhen4J+pWK+O7XuJKe9LR0VpkIFTTUszzyzqD+B5GVVVDjzBQSRxkAnV9o5SjYzj2wf9NITUVOGBWIZ/M/21FeFV9QV8lPZrjUUFFbmJq62mRHMs4GBTrvBVgud0nHB2r3zhN+TUPz5M8rYsKWB3I+hoktl76ivlZJNS0Ek7zTT1bYJVUVS3+WNrbB7YwOdW3omnnpenpKqsheCouNTLcHhk4MSuRsRvZhGqAj3yNJ03SVKtXBVXmtuN5lgcPDHUhFgjcchxFGqqWHozbiPTB1aT/GjPLKCQQR399Uom2yfZ5mfP+UBQKAjKGY7imNqqQF3EgD7H10r4DT1UNSCEUDIUqQ31B1upaClUvK6pvPrgbj9Pb8teoYhV11PUxPG0XuM5Pf11qOZLH1xjIYSAqBjklc9tNSyKQDgsfUAalKyJpaYhDhxyM8g/Q6i43WVSCMN/Mvtpsi0bhU+RpcrlTW231VZUAiKBC7ccsewUe5JIA+pGgx1VVSNBd7hdfkrhJUxU8FxpKhTC1qMi/wAIpJyVjRmBY98hmByCAYepra13sVZQU8ixVDKrRO34VkVg6bvpuQZ+mdCWO2XXq28Tm6SxUsFLJJTVUdOWiqniY7/lp1A2hVbGHB845GA51g5oX5KdOoYkeyTsMz01TWVlq6tW936CiT5iNfBNPMi7igZUGVyS2G3lhuycjjV3rbVRdTW6guYlmpK7wllpK6DAmiV1VtnYh1OeUYFT9Dzqkw0j9HfDqopxDGKqITKrQqNssssjBJGwPKCXUnPCgH0GiGi0fS/TsZrqnZTUFOkTSknkKoQADuSSBgDkkjQxNuuNqFCEfcrVVJ1DbEIutpFxp1/3u0jc2Pd6djuB99jONQD3jofq9YNl9oxWQ5EMsdV8rUxZ/Eo3YJBxypBU47aq3WHVdd1JXSxu8sVrziOj3eUgfzSY/Gx9j5R2A9TU+oreKmGnV0R4ACjb4xIsZypViv8ATlcEeze2dKVTdY4MxXXsvx7ELtv6fsdJdYpxcXuVfF54vmaqOQxehdY0AUHn8WM899KX74g9O2mObxKipq5oHEUkNFTPKVcnaFZsBFOeOWGqD0/X9PWikCUvTldSTgeb" alt="巨人數學" />
+  <div class="brand-name">巨人數學</div>
+</div>
 
+<!-- ═══ 選關畫面 ═══ -->
 <div id="screen-select" class="hidden">
 <div class="panel">
-<div class="title">➕➖ 正負數加減大挑戰</div>
-<div class="total-score-banner">
-<div class="label">🏅 本次累計分數（四等級最佳成績總和）</div>
-<div class="big" id="total-score">0</div>
+  <div class="title">✖️ 乘法公式大挑戰</div>
+  <div class="subtitle">👁 專治眼殘・正負號殺手</div>
+  <div class="total-score-banner">
+    <div class="label">🏅 本次累計分數（三等級最佳成績總和）</div>
+    <div class="big" id="total-score">0</div>
+  </div>
+  <div class="level-grid" id="level-grid"></div>
+  <div class="rules-note">💡 每等級共 12 題，答對得分、Combo 加碼！<br>三個選項裡藏著經典眼殘陷阱，千萬別中招。</div>
 </div>
-<div class="level-grid" id="level-grid"></div>
-<div class="rules-note">💡 每等級共 15 題，答對得分、連續答對還有加碼！等級越高，數字範圍越大、作答時間越短，但分數倍率也越高。</div>
-</div>
-<div class="footer-hint">💡 國一上學期：正負數加減運算練習</div>
+<div class="footer-hint">💡 國二上學期：乘法公式運算練習</div>
 </div>
 
+<!-- ═══ 作答畫面 ═══ -->
 <div id="screen-playing" class="hidden">
 <div class="header">
-<div class="header-top">
-<button class="back-btn" id="back-btn">← 返回選關</button>
-<div class="level-badge-pill" id="play-level-badge">🌱 初心者</div>
-</div>
-<div class="stats-row">
-<div class="stat-box"><div class="stat-label">本關分數</div><div class="stat-value" id="play-score">0</div></div>
-<div class="stat-box"><div class="stat-label">連續答對</div><div class="stat-value" id="play-combo">0</div></div>
-<div class="stat-box"><div class="stat-label">剩餘秒數</div><div class="stat-value" id="play-time">15</div></div>
-</div>
-<div class="timer-bar-bg"><div class="timer-bar" id="timer-bar"></div></div>
+  <div class="header-top">
+    <button class="back-btn" id="back-btn">← 返回選關</button>
+    <div class="level-badge-pill" id="play-level-badge">🌱 基礎公式級</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-label">本關分數</div><div class="stat-value" id="play-score">0</div></div>
+    <div class="stat-box"><div class="stat-label">連續答對</div><div class="stat-value" id="play-combo">0</div></div>
+    <div class="stat-box"><div class="stat-label">剩餘秒數</div><div class="stat-value" id="play-time">15</div></div>
+  </div>
+  <div class="timer-bar-bg"><div class="timer-bar" id="timer-bar"></div></div>
 </div>
 <div class="playing-area" id="playing-area">
-<div class="progress-text" id="progress-text">第 1 / 15 題</div>
-<div class="progress-dots" id="progress-dots"></div>
-<div class="question-card"><div id="question">準備中...</div></div>
-<div class="answer-options" id="answer-options"></div>
+  <div class="progress-text" id="progress-text">第 1 / 12 題</div>
+  <div class="progress-dots" id="progress-dots"></div>
+  <div class="question-card">
+    <div class="q-type-tag" id="q-type-tag">平方和公式</div>
+    <div id="question">準備中...</div>
+  </div>
+  <div class="answer-options" id="answer-options"></div>
 </div>
 </div>
 
+<!-- ═══ 結果畫面 ═══ -->
 <div id="screen-result" class="hidden">
 <div class="panel">
-<h2 id="result-title">挑戰完成！</h2>
-<div class="thumbsup-stage" id="thumbsup-stage"><div class="icon">👍</div></div>
-<div class="record-banner" id="record-banner"></div>
-<div class="result-grid">
-<div class="result-box"><div class="result-label">本次得分</div><div class="result-value" id="result-score">0</div></div>
-<div class="result-box"><div class="result-label">正確率</div><div class="result-value" id="result-accuracy">0%</div></div>
-<div class="result-box"><div class="result-label">答對題數</div><div class="result-value" id="result-correct">0</div></div>
-<div class="result-box"><div class="result-label">答錯題數</div><div class="result-value" id="result-wrong">0</div></div>
-</div>
-<div class="total-score-banner small"><div class="label">🏅 本次累計分數</div><div class="big" id="result-total-cum">0</div></div>
-<div class="btn-row">
-<button class="btn-secondary" id="back-to-select-btn">返回選關</button>
-<button class="btn-primary" id="retry-level-btn">再挑戰一次</button>
-</div>
+  <h2 id="result-title">挑戰完成！</h2>
+  <div class="thumbsup-stage" id="thumbsup-stage"><div class="icon">👍</div></div>
+  <div class="record-banner" id="record-banner"></div>
+  <div class="result-grid">
+    <div class="result-box"><div class="result-label">本次得分</div><div class="result-value" id="result-score">0</div></div>
+    <div class="result-box"><div class="result-label">正確率</div><div class="result-value" id="result-accuracy">0%</div></div>
+    <div class="result-box"><div class="result-label">答對題數</div><div class="result-value" id="result-correct">0</div></div>
+    <div class="result-box"><div class="result-label">答錯題數</div><div class="result-value" id="result-wrong">0</div></div>
+  </div>
+  <div class="total-score-banner small"><div class="label">🏅 本次累計分數</div><div class="big" id="result-total-cum">0</div></div>
+  <div class="btn-row">
+    <button class="btn-secondary" id="back-to-select-btn">返回選關</button>
+    <button class="btn-primary" id="retry-level-btn">再挑戰一次</button>
+  </div>
 </div>
 </div>
 
@@ -153,235 +194,110 @@ body{min-height:100vh;background:linear-gradient(160deg,#0b1120,#161f33);display
 
 <script>
 (function(){
+'use strict';
 const LEVELS=[
-{id:'beginner',name:'初心者',emoji:'🌱',timePerQ:15,operandMax:9,resultBound:10,multiplier:1,grad:['#34d399','#059669']},
-{id:'b',name:'B級',emoji:'⚔️',timePerQ:10,operandMax:12,resultBound:13,multiplier:1.5,grad:['#60a5fa','#2563eb']},
-{id:'a',name:'A級',emoji:'🔥',timePerQ:7,operandMax:15,resultBound:16,multiplier:2,grad:['#a78bfa','#7c3aed']},
-{id:'ssr',name:'SSR級',emoji:'👑',timePerQ:5,operandMax:18,resultBound:19,multiplier:3,grad:['#fbbf24','#d97706']},
+  {id:'basic',name:'基礎公式級',emoji:'🌱',timePerQ:12,multiplier:1,grad:['#34d399','#059669'],desc:'純公式辨識・專治正負號眼殘',questionTypes:['sq_sum','sq_diff','diff_of_sq','sq_sum_rev','sq_diff_rev','diff_of_sq_rev']},
+  {id:'mid',name:'單變數進階級',emoji:'⚔️',timePerQ:8,multiplier:1.5,grad:['#60a5fa','#2563eb'],desc:'代入常數・練習 2ab 展開',questionTypes:['num_sq_sum','num_sq_diff','num_diff_of_sq']},
+  {id:'ssr',name:'係數魔王級',emoji:'👑',timePerQ:12,multiplier:3,grad:['#fbbf24','#d97706'],desc:'前項係數・複合平方陷阱',questionTypes:['coef_sq_sum','coef_sq_diff','coef_diff_of_sq']},
 ];
-const levelBestScores={beginner:0,b:0,a:0,ssr:0};
-
-let currentLevel=null;
-let questionIndex=0,levelScore=0,combo=0,correctCount=0,wrongCount=0;
-let currentAnswer=null,questionActive=false;
+const levelBestScores={basic:0,mid:0,ssr:0};
+const TOTAL_Q=12;
+let currentLevel=null,questionIndex=0,levelScore=0,combo=0,correctCount=0,wrongCount=0;
+let currentAnswerKey=null,questionActive=false;
 let questionTimeout=null,tickInterval=null,advanceTimeout=null;
-let tilesByValue={};
-let progressDotEls=[];
+let tilesByKey={},progressDotEls=[],basicQueue=[];
 
 const SCREENS=['select','playing','result'];
-function showScreen(n){ SCREENS.forEach(s=>document.getElementById('screen-'+s).classList.toggle('hidden',s!==n)); }
-function clearAllTimers(){ clearTimeout(questionTimeout); clearInterval(tickInterval); clearTimeout(advanceTimeout); }
-function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
-function formatNum(n){ return n<0 ? '('+n+')' : ''+n; }
+function showScreen(n){SCREENS.forEach(s=>document.getElementById('screen-'+s).classList.toggle('hidden',s!==n));}
+function clearAllTimers(){clearTimeout(questionTimeout);clearInterval(tickInterval);clearTimeout(advanceTimeout);}
+function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function shuffle(arr){let a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function fmt3(A,B,C,v='x'){
+  let s='';
+  if(A===1)s=`${v}²`;else if(A===-1)s=`-${v}²`;else s=`${A}${v}²`;
+  if(B!==0){if(B===1)s+=` + ${v}`;else if(B===-1)s+=` - ${v}`;else if(B>0)s+=` + ${B}${v}`;else s+=` - ${Math.abs(B)}${v}`;}
+  if(C!==0){if(C>0)s+=` + ${C}`;else s+=` - ${Math.abs(C)}`;}
+  return s;
+}
+function fmt2diff(A,B,v='x'){let s='';if(A===1)s=`${v}²`;else s=`${A}${v}²`;s+=` - ${B}`;return s;}
+
+function gen_sq_sum(){const sign=pick(['+','-']);const isPlus=sign==='+';const correct=isPlus?'a² + 2ab + b²':'a² - 2ab + b²';const distractors=isPlus?['a² + 2ab - b²','a² + ab + b²','a² + b²']:['a² - 2ab - b²','a² - ab + b²','a² - b²'];return{qText:`(a ${sign} b)² = ?`,tag:'完全平方公式',correct,distractors};}
+function gen_sq_diff(){const flip=Math.random()<0.5;return{qText:flip?'(a - b)(a + b) = ?':'(a + b)(a - b) = ?',tag:'平方差公式',correct:'a² - b²',distractors:['a² + b²','a² - 2ab - b²','-a² - b²']};}
+function gen_diff_of_sq(){return{qText:'a² - 2ab + b² = ?',tag:'逆向辨認',correct:'(a - b)²',distractors:['(a + b)²','(a - b)(a + b)','-(a + b)²']};}
+function gen_sq_sum_rev(){const isPlus=Math.random()<0.5;const correct=isPlus?'(a + b)²':'(a - b)²';const distractors=isPlus?['(a - b)²','(a + b)(a - b)','(a + b)² - 2ab']:['(a + b)²','(a - b)(a + b)','-(a + b)²'];return{qText:isPlus?'a² + 2ab + b² = ?':'a² - 2ab + b² = ?',tag:'逆向辨認',correct,distractors};}
+function gen_sq_diff_rev(){return{qText:'a² - b² = ?',tag:'逆向辨認',correct:'(a + b)(a - b)',distractors:['(a - b)²','(a + b)²','(a + b)(a + b)']};}
+function gen_diff_of_sq_rev(){const isPlus=Math.random()<0.5;return{qText:isPlus?'(a + b)(a - b) = ?':'(a - b)(a + b) = ?',tag:'逆向辨認',correct:'a² - b²',distractors:['a² + b²','a² - 2ab + b²','-a² + b²']};}
+function gen_num_sq_sum(){const n=randInt(1,9);const sign=pick(['+','-']);const isPlus=sign==='+';const B=isPlus?2*n:-(2*n);const C=n*n;const correct=fmt3(1,B,C);return{qText:`(x ${sign} ${n})² = ?`,tag:'完全平方公式',correct,distractors:[fmt3(1,isPlus?n:-n,C),fmt3(1,B,-C),fmt3(1,0,C)]};}
+function gen_num_sq_diff(){const n=randInt(2,9);const correct=fmt3(1,-2*n,n*n);return{qText:`(x - ${n})² = ?`,tag:'完全平方公式',correct,distractors:[fmt3(1,-n,n*n),fmt3(1,-2*n,-(n*n)),fmt3(1,0,-(n*n))]};}
+function gen_num_diff_of_sq(){const n=randInt(1,9);const flip=Math.random()<0.5;const correct=fmt2diff(1,n*n);return{qText:flip?`(x - ${n})(x + ${n}) = ?`:`(x + ${n})(x - ${n}) = ?`,tag:'平方差公式',correct,distractors:[fmt3(1,0,n*n),fmt3(1,-n,-(n*n)),fmt3(1,-2*n,n*n)]};}
+function gen_coef_sq_sum(){const a=pick([2,3,4,5]);const b=randInt(1,9);const sign=pick(['+','-']);const isPlus=sign==='+';const A2=a*a,B2=isPlus?2*a*b:-(2*a*b),C2=b*b;const correct=fmt3(A2,B2,C2);return{qText:`(${a}x ${sign} ${b})² = ?`,tag:'完全平方公式',correct,distractors:[fmt3(a,B2,C2),fmt3(A2,isPlus?a*b:-(a*b),C2),fmt3(A2,0,C2)]};}
+function gen_coef_sq_diff(){const a=pick([2,3,4]);const b=randInt(1,7);const A2=a*a,B2=-(2*a*b),C2=b*b;const correct=fmt3(A2,B2,C2);return{qText:`(${a}x - ${b})² = ?`,tag:'完全平方公式',correct,distractors:[fmt3(a,B2,C2),fmt3(A2,-(a*b),C2),fmt3(A2,B2,-C2)]};}
+function gen_coef_diff_of_sq(){const a=pick([2,3,4,5]);const b=randInt(1,7);const flip=Math.random()<0.5;const correct=fmt2diff(a*a,b*b);return{qText:flip?`(${a}x - ${b})(${a}x + ${b}) = ?`:`(${a}x + ${b})(${a}x - ${b}) = ?`,tag:'平方差公式',correct,distractors:[fmt3(a*a,0,b*b),fmt3(a*a,-(2*a*b),b*b),fmt3(a,0,-(b*b))]};}
+
+const GENERATORS={sq_sum:gen_sq_sum,sq_diff:gen_sq_diff,diff_of_sq:gen_diff_of_sq,sq_sum_rev:gen_sq_sum_rev,sq_diff_rev:gen_sq_diff_rev,diff_of_sq_rev:gen_diff_of_sq_rev,num_sq_sum:gen_num_sq_sum,num_sq_diff:gen_num_sq_diff,num_diff_of_sq:gen_num_diff_of_sq,coef_sq_sum:gen_coef_sq_sum,coef_sq_diff:gen_coef_sq_diff,coef_diff_of_sq:gen_coef_diff_of_sq};
 
 const answerOptionsWrap=document.getElementById('answer-options');
 const questionEl=document.getElementById('question');
+const qTypeTagEl=document.getElementById('q-type-tag');
 const playingArea=document.getElementById('playing-area');
 const timeNumEl=document.getElementById('play-time');
 const timerBar=document.getElementById('timer-bar');
 const progressTextEl=document.getElementById('progress-text');
 const progressDotsWrap=document.getElementById('progress-dots');
 
-/* ---------- level select ---------- */
 function renderLevelSelect(){
-  const wrap=document.getElementById('level-grid');
-  wrap.innerHTML='';
-  let total=0;
+  const wrap=document.getElementById('level-grid');wrap.innerHTML='';let total=0;
   LEVELS.forEach(lv=>{
     total+=levelBestScores[lv.id];
     const card=document.createElement('div');
     card.className='level-card'+(lv.id==='ssr'?' ssr-card':'');
     card.style.background=`linear-gradient(135deg,${lv.grad[0]},${lv.grad[1]})`;
     const bestText=levelBestScores[lv.id]>0?`🏆 最佳 ${levelBestScores[lv.id]} 分`:'尚未挑戰';
-    card.innerHTML=`<div class="emoji">${lv.emoji}</div><div class="name">${lv.name}</div><div class="meta">⏱ ${lv.timePerQ}秒/題<br>✨ ${lv.multiplier}x 分數</div><div class="best">${bestText}</div>`;
-    card.addEventListener('click',()=>startLevel(lv));
-    wrap.appendChild(card);
+    card.innerHTML=`<div class="emoji">${lv.emoji}</div><div class="info"><div class="name">${lv.name}</div><div class="meta">⏱ ${lv.timePerQ}秒/題 &nbsp;✨ ${lv.multiplier}x 分數<br>${lv.desc}</div></div><div class="best">${bestText}</div>`;
+    card.addEventListener('click',()=>startLevel(lv));wrap.appendChild(card);
   });
   document.getElementById('total-score').textContent=total;
 }
 
-/* ---------- question + answer options ---------- */
-function generateDistractors(a,b,op,correct,count){
-  const candidates=new Set();
-  candidates.add(-correct);
-  candidates.add(correct+1);
-  candidates.add(correct-1);
-  candidates.add(correct+2);
-  candidates.add(correct-2);
-  candidates.add(op==='+' ? Math.abs(a)+Math.abs(b) : Math.abs(a)-Math.abs(b));
-  candidates.add(op==='+' ? a-b : a+b);
-  candidates.delete(correct);
-  let arr=Array.from(candidates);
-  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
-  let result=arr.slice(0,count);
-  let attempts=0;
-  while(result.length<count && attempts<60){
-    attempts++;
-    const candidate=correct+randInt(-6,6);
-    if(candidate!==correct && !result.includes(candidate)) result.push(candidate);
-  }
-  return result.slice(0,count);
-}
-function renderAnswerOptions(a,b,op,correct){
-  const distractors=generateDistractors(a,b,op,correct,3);
-  let options=[correct,...distractors];
-  for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
-  answerOptionsWrap.innerHTML='';
-  tilesByValue={};
-  options.forEach(val=>{
+let currentQ=null;
+function nextTypeFromQueue(){if(basicQueue.length===0)basicQueue=shuffle([...currentLevel.questionTypes]);return basicQueue.shift();}
+function generateAndRender(){
+  const type=(currentLevel.id==='basic')?nextTypeFromQueue():pick(currentLevel.questionTypes);
+  currentQ=GENERATORS[type]();
+  qTypeTagEl.textContent=currentQ.tag;questionEl.textContent=currentQ.qText;
+  const pickedDistractors=shuffle(currentQ.distractors).slice(0,2);
+  const opts=shuffle([{key:'correct',text:currentQ.correct},{key:'d0',text:pickedDistractors[0]},{key:'d1',text:pickedDistractors[1]}]);
+  currentAnswerKey='correct';answerOptionsWrap.innerHTML='';tilesByKey={};
+  const labels=['A','B','C'],colorClasses=['opt-A','opt-B','opt-C'];
+  opts.forEach((opt,i)=>{
     const btn=document.createElement('button');
-    btn.className='option-btn '+(val>0?'positive':val<0?'negative':'zero');
-    btn.textContent=val;
-    btn.addEventListener('click',()=>handleTileClick(val,btn));
-    answerOptionsWrap.appendChild(btn);
-    tilesByValue[val]=btn;
+    btn.className=`option-btn ${colorClasses[i]}`;
+    btn.innerHTML=`<span class="opt-label">${labels[i]}</span><span class="opt-text">${opt.text}</span>`;
+    btn.addEventListener('click',()=>handleTileClick(opt.key,btn));
+    answerOptionsWrap.appendChild(btn);tilesByKey[opt.key]=btn;
   });
 }
-function generateQuestion(operandMax,resultBound){
-  const op=Math.random()<0.5?'+':'-';
-  const a=randInt(-operandMax,operandMax);
-  let bMin,bMax;
-  if(op==='+'){ bMin=Math.max(-operandMax,-resultBound-a); bMax=Math.min(operandMax,resultBound-a); }
-  else{ bMin=Math.max(-operandMax,a-resultBound); bMax=Math.min(operandMax,a+resultBound); }
-  const b=randInt(bMin,bMax);
-  currentAnswer=op==='+'?a+b:a-b;
-  questionEl.textContent=`${formatNum(a)} ${op} ${formatNum(b)} = ?`;
-  renderAnswerOptions(a,b,op,currentAnswer);
-}
 
-function buildProgressDots(){
-  progressDotsWrap.innerHTML='';
-  progressDotEls=[];
-  for(let i=0;i<15;i++){
-    const d=document.createElement('div');
-    d.className='dot';
-    progressDotsWrap.appendChild(d);
-    progressDotEls.push(d);
-  }
-}
-function showPopup(text,tileEl,color){
-  const rect=tileEl.getBoundingClientRect();
-  const areaRect=playingArea.getBoundingClientRect();
-  const pop=document.createElement('div');
-  pop.className='points-popup';
-  pop.textContent=text;
-  pop.style.color=color;
-  pop.style.left=(rect.left-areaRect.left+rect.width/2-12)+'px';
-  pop.style.top=(rect.top-areaRect.top)+'px';
-  playingArea.appendChild(pop);
-  setTimeout(()=>pop.remove(),800);
-}
+function buildProgressDots(){progressDotsWrap.innerHTML='';progressDotEls=[];for(let i=0;i<TOTAL_Q;i++){const d=document.createElement('div');d.className='dot';progressDotsWrap.appendChild(d);progressDotEls.push(d);}}
+function markDot(correct){const idx=questionIndex-1;if(progressDotEls[idx])progressDotEls[idx].classList.add(correct?'dot-correct':'dot-wrong');}
+function showPopup(text,tileEl,color){const rect=tileEl.getBoundingClientRect();const areaRect=playingArea.getBoundingClientRect();const pop=document.createElement('div');pop.className='points-popup';pop.textContent=text;pop.style.color=color;pop.style.left=(rect.left-areaRect.left+rect.width/2-16)+'px';pop.style.top=(rect.top-areaRect.top)+'px';playingArea.appendChild(pop);setTimeout(()=>pop.remove(),850);}
 
-/* ---------- gameplay ---------- */
-function startLevel(lv){
-  currentLevel=lv;
-  questionIndex=0; levelScore=0; combo=0; correctCount=0; wrongCount=0; questionActive=false;
-  clearAllTimers();
-  buildProgressDots();
-  const badge=document.getElementById('play-level-badge');
-  badge.textContent=`${lv.emoji} ${lv.name}`;
-  badge.style.background=`linear-gradient(135deg,${lv.grad[0]},${lv.grad[1]})`;
-  updatePlayStats();
-  showScreen('playing');
-  nextQuestion();
-}
-function nextQuestion(){
-  questionIndex++;
-  if(questionIndex>15){ finishLevel(); return; }
-  progressTextEl.textContent=`第 ${questionIndex} / 15 題`;
-  generateQuestion(currentLevel.operandMax,currentLevel.resultBound);
-  questionActive=true;
-  startQuestionTimer();
-}
-function startQuestionTimer(){
-  clearTimeout(questionTimeout); clearInterval(tickInterval);
-  let t=currentLevel.timePerQ;
-  timeNumEl.textContent=t;
-  timerBar.style.transition='none';
-  timerBar.style.width='100%';
-  timerBar.style.background='#22c55e';
-  void timerBar.offsetWidth;
-  timerBar.style.transition=`width ${currentLevel.timePerQ}s linear, background 0.3s`;
-  timerBar.style.width='0%';
-  tickInterval=setInterval(()=>{
-    t--; if(t<0) t=0;
-    timeNumEl.textContent=t;
-    if(t<=Math.ceil(currentLevel.timePerQ*0.3)) timerBar.style.background='#ef4444';
-    else if(t<=Math.ceil(currentLevel.timePerQ*0.6)) timerBar.style.background='#eab308';
-  },1000);
-  questionTimeout=setTimeout(()=>{ clearInterval(tickInterval); handleTimeUp(); },currentLevel.timePerQ*1000);
-}
-function markDot(correct){
-  const idx=questionIndex-1;
-  if(progressDotEls[idx]) progressDotEls[idx].classList.add(correct?'dot-correct':'dot-wrong');
-}
-function handleTileClick(value,tileEl){
-  if(!questionActive) return;
-  questionActive=false;
-  clearTimeout(questionTimeout); clearInterval(tickInterval);
-  const isCorrect=value===currentAnswer;
-  if(isCorrect){
-    combo++; correctCount++;
-    const gained=Math.round((10+combo*2)*currentLevel.multiplier);
-    levelScore+=gained;
-    tileEl.classList.add('correct-flash');
-    showPopup('+'+gained,tileEl,'#4ade80');
-  }else{
-    combo=0; wrongCount++;
-    tileEl.classList.add('wrong-flash');
-    const ct=tilesByValue[currentAnswer];
-    if(ct) ct.classList.add('reveal-flash');
-  }
-  markDot(isCorrect);
-  updatePlayStats();
-  advanceTimeout=setTimeout(()=>{
-    tileEl.classList.remove('correct-flash','wrong-flash');
-    const ct=tilesByValue[currentAnswer];
-    if(ct) ct.classList.remove('reveal-flash');
-    nextQuestion();
-  },500);
-}
-function handleTimeUp(){
-  if(!questionActive) return;
-  questionActive=false;
-  combo=0; wrongCount++;
-  const ct=tilesByValue[currentAnswer];
-  if(ct) ct.classList.add('reveal-flash');
-  markDot(false);
-  updatePlayStats();
-  advanceTimeout=setTimeout(()=>{ if(ct) ct.classList.remove('reveal-flash'); nextQuestion(); },600);
-}
-function updatePlayStats(){
-  document.getElementById('play-score').textContent=levelScore;
-  document.getElementById('play-combo').textContent=combo;
-}
-function finishLevel(){
-  clearAllTimers();
-  const total=correctCount+wrongCount;
-  const accuracy=total>0?Math.round((correctCount/total)*100):0;
-  const newRecord=levelScore>levelBestScores[currentLevel.id];
-  if(newRecord) levelBestScores[currentLevel.id]=levelScore;
-  let totalCum=0; LEVELS.forEach(lv=>totalCum+=levelBestScores[lv.id]);
-  document.getElementById('result-title').textContent=`${currentLevel.emoji} ${currentLevel.name} 挑戰完成！`;
-  document.getElementById('result-score').textContent=levelScore;
-  document.getElementById('result-accuracy').textContent=accuracy+'%';
-  document.getElementById('result-correct').textContent=correctCount;
-  document.getElementById('result-wrong').textContent=wrongCount;
-  document.getElementById('result-total-cum').textContent=totalCum;
-  const banner=document.getElementById('record-banner');
-  if(newRecord){ banner.className='record-banner is-new'; banner.textContent='🆕 創新紀錄！'; }
-  else{ banner.className='record-banner is-old'; banner.textContent=`本等級最佳成績：${levelBestScores[currentLevel.id]} 分`; }
-  showScreen('result');
-}
-function backToSelect(){ clearAllTimers(); questionActive=false; showScreen('select'); renderLevelSelect(); }
+function startLevel(lv){currentLevel=lv;questionIndex=0;levelScore=0;combo=0;correctCount=0;wrongCount=0;questionActive=false;basicQueue=[];clearAllTimers();buildProgressDots();const badge=document.getElementById('play-level-badge');badge.textContent=`${lv.emoji} ${lv.name}`;badge.style.background=`linear-gradient(135deg,${lv.grad[0]},${lv.grad[1]})`;updatePlayStats();showScreen('playing');nextQuestion();}
+function nextQuestion(){questionIndex++;if(questionIndex>TOTAL_Q){finishLevel();return;}progressTextEl.textContent=`第 ${questionIndex} / ${TOTAL_Q} 題`;generateAndRender();questionActive=true;startQuestionTimer();}
+function startQuestionTimer(){clearTimeout(questionTimeout);clearInterval(tickInterval);let t=currentLevel.timePerQ;timeNumEl.textContent=t;timerBar.style.transition='none';timerBar.style.width='100%';timerBar.style.background='#22c55e';void timerBar.offsetWidth;timerBar.style.transition=`width ${currentLevel.timePerQ}s linear, background 0.3s`;timerBar.style.width='0%';tickInterval=setInterval(()=>{t--;if(t<0)t=0;timeNumEl.textContent=t;if(t<=Math.ceil(currentLevel.timePerQ*0.3))timerBar.style.background='#ef4444';else if(t<=Math.ceil(currentLevel.timePerQ*0.6))timerBar.style.background='#eab308';},1000);questionTimeout=setTimeout(()=>{clearInterval(tickInterval);handleTimeUp();},currentLevel.timePerQ*1000);}
+function handleTileClick(key,tileEl){if(!questionActive)return;questionActive=false;clearTimeout(questionTimeout);clearInterval(tickInterval);const isCorrect=(key===currentAnswerKey);if(isCorrect){combo++;correctCount++;const gained=Math.round((10+combo*2)*currentLevel.multiplier);levelScore+=gained;tileEl.classList.add('correct-flash');showPopup('+'+gained,tileEl,'#4ade80');}else{combo=0;wrongCount++;tileEl.classList.add('wrong-flash');const ct=tilesByKey[currentAnswerKey];if(ct)ct.classList.add('reveal-flash');}markDot(isCorrect);updatePlayStats();advanceTimeout=setTimeout(()=>{tileEl.classList.remove('correct-flash','wrong-flash');const ct=tilesByKey[currentAnswerKey];if(ct)ct.classList.remove('reveal-flash');nextQuestion();},600);}
+function handleTimeUp(){if(!questionActive)return;questionActive=false;combo=0;wrongCount++;const ct=tilesByKey[currentAnswerKey];if(ct)ct.classList.add('reveal-flash');markDot(false);updatePlayStats();advanceTimeout=setTimeout(()=>{if(ct)ct.classList.remove('reveal-flash');nextQuestion();},700);}
+function updatePlayStats(){document.getElementById('play-score').textContent=levelScore;document.getElementById('play-combo').textContent=combo;}
+function finishLevel(){clearAllTimers();const total=correctCount+wrongCount;const accuracy=total>0?Math.round((correctCount/total)*100):0;const newRecord=levelScore>levelBestScores[currentLevel.id];if(newRecord)levelBestScores[currentLevel.id]=levelScore;let totalCum=0;LEVELS.forEach(lv=>totalCum+=levelBestScores[lv.id]);document.getElementById('result-title').textContent=`${currentLevel.emoji} ${currentLevel.name} 挑戰完成！`;document.getElementById('result-score').textContent=levelScore;document.getElementById('result-accuracy').textContent=accuracy+'%';document.getElementById('result-correct').textContent=correctCount;document.getElementById('result-wrong').textContent=wrongCount;document.getElementById('result-total-cum').textContent=totalCum;const banner=document.getElementById('record-banner');if(newRecord){banner.className='record-banner is-new';banner.textContent='🆕 創新紀錄！';}else{banner.className='record-banner is-old';banner.textContent=`本等級最佳成績：${levelBestScores[currentLevel.id]} 分`;}const icon=document.getElementById('thumbsup-stage').querySelector('.icon');if(accuracy>=90)icon.textContent='🏆';else if(accuracy>=70)icon.textContent='👍';else if(accuracy>=50)icon.textContent='💪';else icon.textContent='😅';showScreen('result');}
+function backToSelect(){clearAllTimers();questionActive=false;showScreen('select');renderLevelSelect();}
 
-/* ---------- nav / init ---------- */
 document.getElementById('back-btn').addEventListener('click',backToSelect);
-document.getElementById('back-to-select-btn').addEventListener('click',()=>{ showScreen('select'); renderLevelSelect(); });
+document.getElementById('back-to-select-btn').addEventListener('click',()=>{showScreen('select');renderLevelSelect();});
 document.getElementById('retry-level-btn').addEventListener('click',()=>startLevel(currentLevel));
 
-renderLevelSelect();
-showScreen('select');
+renderLevelSelect();showScreen('select');
 })();
 </script>
 </body>
