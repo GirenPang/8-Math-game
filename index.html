@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巨人數學 - 正負數加減大挑戰</title>
+<style>
+:root{
+--green:#22c55e;--green-dark:#16a34a;
+--red:#ef4444;--red-bright:#f87171;
+--blue-bright:#60a5fa;--orange-bright:#fb923c;
+--text-primary:#f1f5f9;--text-muted:#94a3b8;
+--bg-panel:#1e293b;--bg-surface:#273449;
+--border-soft:rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;min-height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,sans-serif;}
+body{min-height:100vh;background:linear-gradient(160deg,#0b1120,#161f33);display:flex;justify-content:center;padding:16px;}
+.app{width:100%;max-width:480px;}
+.hidden{display:none!important;}
+.brand-bar{padding:2px 4px 14px;}
+.brand-name{font-weight:800;font-size:18px;color:var(--text-primary);letter-spacing:1px;}
+.panel{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:20px;padding:22px 18px;box-shadow:0 6px 22px rgba(0,0,0,0.45);}
+.title{text-align:center;font-size:19px;font-weight:800;color:var(--text-primary);margin:0 0 10px 0;}
+.total-score-banner{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border-radius:16px;padding:14px;text-align:center;margin-bottom:14px;box-shadow:0 6px 16px rgba(59,130,246,0.35);}
+.total-score-banner .label{font-size:12px;opacity:0.92;font-weight:600;}
+.total-score-banner .big{font-size:26px;font-weight:800;}
+.total-score-banner.small{padding:10px;margin-bottom:16px;}
+.total-score-banner.small .big{font-size:21px;}
+.btn-primary{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border:none;padding:13px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(59,130,246,0.35);flex:1;transition:transform .15s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-primary:active{transform:scale(0.96);}
+.btn-secondary{flex:1;background:var(--bg-surface);color:var(--text-primary);border:none;padding:13px;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;}
+.btn-secondary:hover{background:#334155;}
+.btn-row{display:flex;gap:10px;}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.level-card{position:relative;border-radius:18px;padding:16px 10px;text-align:center;color:#fff;cursor:pointer;transition:transform .15s;box-shadow:0 4px 16px rgba(0,0,0,0.35);}
+.level-card:hover{transform:translateY(-3px) scale(1.02);}
+.level-card:active{transform:scale(0.97);}
+.level-card .emoji{font-size:28px;}
+.level-card .name{font-size:16px;font-weight:800;margin:2px 0;}
+.level-card .meta{font-size:11px;opacity:0.95;font-weight:600;line-height:1.5;}
+.level-card .best{font-size:12px;margin-top:8px;font-weight:700;background:rgba(255,255,255,0.25);border-radius:8px;padding:4px 6px;}
+@keyframes ssrPulseGlow{0%,100%{box-shadow:0 4px 16px rgba(251,191,36,0.4);}50%{box-shadow:0 4px 26px rgba(251,191,36,0.75);}}
+.level-card.ssr-card{animation:ssrPulseGlow 2.4s ease-in-out infinite;}
+.rules-note{font-size:12px;color:var(--text-muted);line-height:1.7;text-align:center;}
+.header{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:20px;padding:14px 18px;margin-bottom:12px;box-shadow:0 6px 22px rgba(0,0,0,0.45);}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.back-btn{background:var(--bg-surface);color:var(--text-primary);border:none;border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;}
+.back-btn:hover{background:#334155;}
+.level-badge-pill{color:#fff;font-weight:800;font-size:13px;padding:6px 14px;border-radius:999px;box-shadow:0 3px 8px rgba(0,0,0,0.25);}
+.stats-row{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.stat-box{flex:1;text-align:center;background:var(--bg-surface);border-radius:12px;padding:6px 4px;}
+.stat-label{font-size:11px;color:var(--text-muted);font-weight:700;}
+.stat-value{font-size:19px;font-weight:800;color:var(--text-primary);}
+#play-score{color:var(--blue-bright);} #play-combo{color:var(--orange-bright);} #play-time{color:var(--red-bright);}
+.timer-bar-bg{height:7px;background:#334155;border-radius:6px;overflow:hidden;}
+.timer-bar{height:100%;width:100%;background:var(--green);border-radius:6px;}
+.playing-area{position:relative;}
+.progress-text{text-align:center;color:var(--text-muted);font-weight:700;font-size:13px;margin-bottom:6px;}
+.progress-dots{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;}
+.dot{width:12px;height:12px;border-radius:50%;background:#334155;transition:background .2s;}
+.dot-correct{background:var(--green);} .dot-wrong{background:var(--red);}
+.question-card{background:linear-gradient(135deg,#312e81,#4c1d95);border-radius:20px;padding:24px 16px;margin-bottom:16px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.4);min-height:74px;display:flex;align-items:center;justify-content:center;}
+#question{font-size:26px;font-weight:800;color:#fff;letter-spacing:1px;}
+.answer-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.option-btn{padding:18px 8px;border:none;border-radius:14px;font-size:21px;font-weight:800;cursor:pointer;transition:transform .12s;box-shadow:0 3px 12px rgba(0,0,0,0.3);color:#fff;}
+.option-btn:active{transform:scale(0.94);}
+.option-btn.positive{background:#3b82f6;}
+.option-btn.negative{background:#f97316;}
+.option-btn.zero{background:#475569;}
+@keyframes correctPulse{0%{transform:scale(1);}40%{transform:scale(1.12);background:var(--green)!important;box-shadow:0 0 0 8px rgba(34,197,94,0.35);}100%{transform:scale(1);background:var(--green)!important;}}
+@keyframes wrongShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+@keyframes revealPulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+.option-btn.correct-flash{animation:correctPulse 0.4s ease forwards;background:var(--green)!important;}
+.option-btn.wrong-flash{animation:wrongShake 0.4s ease;background:var(--red)!important;}
+.option-btn.reveal-flash{animation:revealPulse 0.5s ease;box-shadow:0 0 0 4px rgba(250,204,21,0.9);}
+.points-popup{position:absolute;font-weight:800;font-size:15px;pointer-events:none;animation:floatUp 0.8s ease forwards;z-index:50;}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-36px);}}
+#result-title{text-align:center;margin:0 0 16px;color:var(--text-primary);font-size:19px;font-weight:800;}
+.thumbsup-stage{width:110px;height:110px;margin:0 auto 18px;border-radius:50%;background:linear-gradient(135deg,#fde68a,#fbbf24);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(251,191,36,0.45);}
+.thumbsup-stage .icon{font-size:54px;line-height:1;}
+.record-banner{border-radius:12px;padding:9px;margin-bottom:12px;font-weight:800;font-size:14px;text-align:center;}
+@keyframes recordPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+.record-banner.is-new{background:linear-gradient(135deg,#fde68a,#fbbf24);color:#7c2d12;animation:recordPulse 1s ease infinite;}
+.record-banner.is-old{background:var(--bg-surface);color:var(--text-muted);}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.result-box{background:var(--bg-surface);border-radius:12px;padding:10px;text-align:center;}
+.result-label{font-size:12px;color:var(--text-muted);font-weight:700;}
+.result-value{font-size:21px;font-weight:800;color:var(--text-primary);}
+.footer-hint{text-align:center;color:var(--text-muted);font-size:12px;margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="brand-bar"><div class="brand-name">📐 巨人數學</div></div>
+
+<div id="screen-select" class="hidden">
+<div class="panel">
+<div class="title">➕➖ 正負數加減大挑戰</div>
+<div class="total-score-banner">
+<div class="label">🏅 本次累計分數（四等級最佳成績總和）</div>
+<div class="big" id="total-score">0</div>
+</div>
+<div class="level-grid" id="level-grid"></div>
+<div class="rules-note">💡 每等級共 15 題，答對得分、連續答對還有加碼！等級越高，數字範圍越大、作答時間越短，但分數倍率也越高。</div>
+</div>
+<div class="footer-hint">💡 國一上學期：正負數加減運算練習</div>
+</div>
+
+<div id="screen-playing" class="hidden">
+<div class="header">
+<div class="header-top">
+<button class="back-btn" id="back-btn">← 返回選關</button>
+<div class="level-badge-pill" id="play-level-badge">🌱 初心者</div>
+</div>
+<div class="stats-row">
+<div class="stat-box"><div class="stat-label">本關分數</div><div class="stat-value" id="play-score">0</div></div>
+<div class="stat-box"><div class="stat-label">連續答對</div><div class="stat-value" id="play-combo">0</div></div>
+<div class="stat-box"><div class="stat-label">剩餘秒數</div><div class="stat-value" id="play-time">15</div></div>
+</div>
+<div class="timer-bar-bg"><div class="timer-bar" id="timer-bar"></div></div>
+</div>
+<div class="playing-area" id="playing-area">
+<div class="progress-text" id="progress-text">第 1 / 15 題</div>
+<div class="progress-dots" id="progress-dots"></div>
+<div class="question-card"><div id="question">準備中...</div></div>
+<div class="answer-options" id="answer-options"></div>
+</div>
+</div>
+
+<div id="screen-result" class="hidden">
+<div class="panel">
+<h2 id="result-title">挑戰完成！</h2>
+<div class="thumbsup-stage" id="thumbsup-stage"><div class="icon">👍</div></div>
+<div class="record-banner" id="record-banner"></div>
+<div class="result-grid">
+<div class="result-box"><div class="result-label">本次得分</div><div class="result-value" id="result-score">0</div></div>
+<div class="result-box"><div class="result-label">正確率</div><div class="result-value" id="result-accuracy">0%</div></div>
+<div class="result-box"><div class="result-label">答對題數</div><div class="result-value" id="result-correct">0</div></div>
+<div class="result-box"><div class="result-label">答錯題數</div><div class="result-value" id="result-wrong">0</div></div>
+</div>
+<div class="total-score-banner small"><div class="label">🏅 本次累計分數</div><div class="big" id="result-total-cum">0</div></div>
+<div class="btn-row">
+<button class="btn-secondary" id="back-to-select-btn">返回選關</button>
+<button class="btn-primary" id="retry-level-btn">再挑戰一次</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+(function(){
+const LEVELS=[
+{id:'beginner',name:'初心者',emoji:'🌱',timePerQ:15,operandMax:9,resultBound:10,multiplier:1,grad:['#34d399','#059669']},
+{id:'b',name:'B級',emoji:'⚔️',timePerQ:10,operandMax:12,resultBound:13,multiplier:1.5,grad:['#60a5fa','#2563eb']},
+{id:'a',name:'A級',emoji:'🔥',timePerQ:7,operandMax:15,resultBound:16,multiplier:2,grad:['#a78bfa','#7c3aed']},
+{id:'ssr',name:'SSR級',emoji:'👑',timePerQ:5,operandMax:18,resultBound:19,multiplier:3,grad:['#fbbf24','#d97706']},
+];
+const levelBestScores={beginner:0,b:0,a:0,ssr:0};
+
+let currentLevel=null;
+let questionIndex=0,levelScore=0,combo=0,correctCount=0,wrongCount=0;
+let currentAnswer=null,questionActive=false;
+let questionTimeout=null,tickInterval=null,advanceTimeout=null;
+let tilesByValue={};
+let progressDotEls=[];
+
+const SCREENS=['select','playing','result'];
+function showScreen(n){ SCREENS.forEach(s=>document.getElementById('screen-'+s).classList.toggle('hidden',s!==n)); }
+function clearAllTimers(){ clearTimeout(questionTimeout); clearInterval(tickInterval); clearTimeout(advanceTimeout); }
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function formatNum(n){ return n<0 ? '('+n+')' : ''+n; }
+
+const answerOptionsWrap=document.getElementById('answer-options');
+const questionEl=document.getElementById('question');
+const playingArea=document.getElementById('playing-area');
+const timeNumEl=document.getElementById('play-time');
+const timerBar=document.getElementById('timer-bar');
+const progressTextEl=document.getElementById('progress-text');
+const progressDotsWrap=document.getElementById('progress-dots');
+
+/* ---------- level select ---------- */
+function renderLevelSelect(){
+  const wrap=document.getElementById('level-grid');
+  wrap.innerHTML='';
+  let total=0;
+  LEVELS.forEach(lv=>{
+    total+=levelBestScores[lv.id];
+    const card=document.createElement('div');
+    card.className='level-card'+(lv.id==='ssr'?' ssr-card':'');
+    card.style.background=`linear-gradient(135deg,${lv.grad[0]},${lv.grad[1]})`;
+    const bestText=levelBestScores[lv.id]>0?`🏆 最佳 ${levelBestScores[lv.id]} 分`:'尚未挑戰';
+    card.innerHTML=`<div class="emoji">${lv.emoji}</div><div class="name">${lv.name}</div><div class="meta">⏱ ${lv.timePerQ}秒/題<br>✨ ${lv.multiplier}x 分數</div><div class="best">${bestText}</div>`;
+    card.addEventListener('click',()=>startLevel(lv));
+    wrap.appendChild(card);
+  });
+  document.getElementById('total-score').textContent=total;
+}
+
+/* ---------- question + answer options ---------- */
+function generateDistractors(a,b,op,correct,count){
+  const candidates=new Set();
+  candidates.add(-correct);
+  candidates.add(correct+1);
+  candidates.add(correct-1);
+  candidates.add(correct+2);
+  candidates.add(correct-2);
+  candidates.add(op==='+' ? Math.abs(a)+Math.abs(b) : Math.abs(a)-Math.abs(b));
+  candidates.add(op==='+' ? a-b : a+b);
+  candidates.delete(correct);
+  let arr=Array.from(candidates);
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  let result=arr.slice(0,count);
+  let attempts=0;
+  while(result.length<count && attempts<60){
+    attempts++;
+    const candidate=correct+randInt(-6,6);
+    if(candidate!==correct && !result.includes(candidate)) result.push(candidate);
+  }
+  return result.slice(0,count);
+}
+function renderAnswerOptions(a,b,op,correct){
+  const distractors=generateDistractors(a,b,op,correct,3);
+  let options=[correct,...distractors];
+  for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
+  answerOptionsWrap.innerHTML='';
+  tilesByValue={};
+  options.forEach(val=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn '+(val>0?'positive':val<0?'negative':'zero');
+    btn.textContent=val;
+    btn.addEventListener('click',()=>handleTileClick(val,btn));
+    answerOptionsWrap.appendChild(btn);
+    tilesByValue[val]=btn;
+  });
+}
+function generateQuestion(operandMax,resultBound){
+  const op=Math.random()<0.5?'+':'-';
+  const a=randInt(-operandMax,operandMax);
+  let bMin,bMax;
+  if(op==='+'){ bMin=Math.max(-operandMax,-resultBound-a); bMax=Math.min(operandMax,resultBound-a); }
+  else{ bMin=Math.max(-operandMax,a-resultBound); bMax=Math.min(operandMax,a+resultBound); }
+  const b=randInt(bMin,bMax);
+  currentAnswer=op==='+'?a+b:a-b;
+  questionEl.textContent=`${formatNum(a)} ${op} ${formatNum(b)} = ?`;
+  renderAnswerOptions(a,b,op,currentAnswer);
+}
+
+function buildProgressDots(){
+  progressDotsWrap.innerHTML='';
+  progressDotEls=[];
+  for(let i=0;i<15;i++){
+    const d=document.createElement('div');
+    d.className='dot';
+    progressDotsWrap.appendChild(d);
+    progressDotEls.push(d);
+  }
+}
+function showPopup(text,tileEl,color){
+  const rect=tileEl.getBoundingClientRect();
+  const areaRect=playingArea.getBoundingClientRect();
+  const pop=document.createElement('div');
+  pop.className='points-popup';
+  pop.textContent=text;
+  pop.style.color=color;
+  pop.style.left=(rect.left-areaRect.left+rect.width/2-12)+'px';
+  pop.style.top=(rect.top-areaRect.top)+'px';
+  playingArea.appendChild(pop);
+  setTimeout(()=>pop.remove(),800);
+}
+
+/* ---------- gameplay ---------- */
+function startLevel(lv){
+  currentLevel=lv;
+  questionIndex=0; levelScore=0; combo=0; correctCount=0; wrongCount=0; questionActive=false;
+  clearAllTimers();
+  buildProgressDots();
+  const badge=document.getElementById('play-level-badge');
+  badge.textContent=`${lv.emoji} ${lv.name}`;
+  badge.style.background=`linear-gradient(135deg,${lv.grad[0]},${lv.grad[1]})`;
+  updatePlayStats();
+  showScreen('playing');
+  nextQuestion();
+}
+function nextQuestion(){
+  questionIndex++;
+  if(questionIndex>15){ finishLevel(); return; }
+  progressTextEl.textContent=`第 ${questionIndex} / 15 題`;
+  generateQuestion(currentLevel.operandMax,currentLevel.resultBound);
+  questionActive=true;
+  startQuestionTimer();
+}
+function startQuestionTimer(){
+  clearTimeout(questionTimeout); clearInterval(tickInterval);
+  let t=currentLevel.timePerQ;
+  timeNumEl.textContent=t;
+  timerBar.style.transition='none';
+  timerBar.style.width='100%';
+  timerBar.style.background='#22c55e';
+  void timerBar.offsetWidth;
+  timerBar.style.transition=`width ${currentLevel.timePerQ}s linear, background 0.3s`;
+  timerBar.style.width='0%';
+  tickInterval=setInterval(()=>{
+    t--; if(t<0) t=0;
+    timeNumEl.textContent=t;
+    if(t<=Math.ceil(currentLevel.timePerQ*0.3)) timerBar.style.background='#ef4444';
+    else if(t<=Math.ceil(currentLevel.timePerQ*0.6)) timerBar.style.background='#eab308';
+  },1000);
+  questionTimeout=setTimeout(()=>{ clearInterval(tickInterval); handleTimeUp(); },currentLevel.timePerQ*1000);
+}
+function markDot(correct){
+  const idx=questionIndex-1;
+  if(progressDotEls[idx]) progressDotEls[idx].classList.add(correct?'dot-correct':'dot-wrong');
+}
+function handleTileClick(value,tileEl){
+  if(!questionActive) return;
+  questionActive=false;
+  clearTimeout(questionTimeout); clearInterval(tickInterval);
+  const isCorrect=value===currentAnswer;
+  if(isCorrect){
+    combo++; correctCount++;
+    const gained=Math.round((10+combo*2)*currentLevel.multiplier);
+    levelScore+=gained;
+    tileEl.classList.add('correct-flash');
+    showPopup('+'+gained,tileEl,'#4ade80');
+  }else{
+    combo=0; wrongCount++;
+    tileEl.classList.add('wrong-flash');
+    const ct=tilesByValue[currentAnswer];
+    if(ct) ct.classList.add('reveal-flash');
+  }
+  markDot(isCorrect);
+  updatePlayStats();
+  advanceTimeout=setTimeout(()=>{
+    tileEl.classList.remove('correct-flash','wrong-flash');
+    const ct=tilesByValue[currentAnswer];
+    if(ct) ct.classList.remove('reveal-flash');
+    nextQuestion();
+  },500);
+}
+function handleTimeUp(){
+  if(!questionActive) return;
+  questionActive=false;
+  combo=0; wrongCount++;
+  const ct=tilesByValue[currentAnswer];
+  if(ct) ct.classList.add('reveal-flash');
+  markDot(false);
+  updatePlayStats();
+  advanceTimeout=setTimeout(()=>{ if(ct) ct.classList.remove('reveal-flash'); nextQuestion(); },600);
+}
+function updatePlayStats(){
+  document.getElementById('play-score').textContent=levelScore;
+  document.getElementById('play-combo').textContent=combo;
+}
+function finishLevel(){
+  clearAllTimers();
+  const total=correctCount+wrongCount;
+  const accuracy=total>0?Math.round((correctCount/total)*100):0;
+  const newRecord=levelScore>levelBestScores[currentLevel.id];
+  if(newRecord) levelBestScores[currentLevel.id]=levelScore;
+  let totalCum=0; LEVELS.forEach(lv=>totalCum+=levelBestScores[lv.id]);
+  document.getElementById('result-title').textContent=`${currentLevel.emoji} ${currentLevel.name} 挑戰完成！`;
+  document.getElementById('result-score').textContent=levelScore;
+  document.getElementById('result-accuracy').textContent=accuracy+'%';
+  document.getElementById('result-correct').textContent=correctCount;
+  document.getElementById('result-wrong').textContent=wrongCount;
+  document.getElementById('result-total-cum').textContent=totalCum;
+  const banner=document.getElementById('record-banner');
+  if(newRecord){ banner.className='record-banner is-new'; banner.textContent='🆕 創新紀錄！'; }
+  else{ banner.className='record-banner is-old'; banner.textContent=`本等級最佳成績：${levelBestScores[currentLevel.id]} 分`; }
+  showScreen('result');
+}
+function backToSelect(){ clearAllTimers(); questionActive=false; showScreen('select'); renderLevelSelect(); }
+
+/* ---------- nav / init ---------- */
+document.getElementById('back-btn').addEventListener('click',backToSelect);
+document.getElementById('back-to-select-btn').addEventListener('click',()=>{ showScreen('select'); renderLevelSelect(); });
+document.getElementById('retry-level-btn').addEventListener('click',()=>startLevel(currentLevel));
+
+renderLevelSelect();
+showScreen('select');
+})();
+</script>
+</body>
+</html>
